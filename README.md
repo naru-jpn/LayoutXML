@@ -1,2 +1,2 @@
 # LayoutXML
-Template engine with xml for iOS
+View layout system with xml for iOS written by Swift.
