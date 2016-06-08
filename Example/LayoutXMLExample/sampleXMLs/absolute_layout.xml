@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLLayouts>
+    <AbsoluteLayout width="match_parent" height="match_parent" background_color="FFF">
+        <UIView width="match_parent" height="20" background_color="AAA" />
+        <UILabel width="match_parent" height="wrap_content" margin="20" number_of_lines="0" text="text\ntext\n\ntexttext" font="HelveticaNeue:12" text_color="666" background_color="CCC" />
+        <AbsoluteLayout width="match_parent" height="200" margin="200 40" background_color="CCF">
+            <UIView width="match_parent" height="20" margin-top="20" background_color="AAA" />
+            <UIView width="match_parent" height="20" margin-top="60" background_color="DDD" />
+        </AbsoluteLayout>
+    </AbsoluteLayout>
+</XMLLayouts>

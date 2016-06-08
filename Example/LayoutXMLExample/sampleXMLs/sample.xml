@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLLayouts>
+    <LinearLayout width="200" height="200" margin_bottom="24" orientation="vertical" background_color="FFF">
+        <!--  1  -->
+        <LinearLayout width="match_parent" height="wrap_content" padding="24 0 12 0" orientation="vertical">
+            <UILabel width="wrap_content" height="wrap_content" margin="4 12" text="@string/outline_title_1" font="HelveticaNeue-Bold:14" text_color="666" />
+            <UIView width="match_parent" height="0.5" background_color="AAA" />
+        </LinearLayout>
+        <UILabel width="match_parent" height="wrap_content" margin="0 12" text="@string/outline_description_1" font="HelveticaNeue:14" text_color="333" number_of_lines="0"/>
+        <!--  2  -->
+        <LinearLayout width="match_parent" height="wrap_content" padding="24 0 12 0" orientation="vertical">
+            <UILabel width="wrap_content" height="wrap_content" margin="4 12" text="@string/outline_title_2" font="HelveticaNeue-Bold:14" text_color="666" />
+            <UIView width="match_parent" height="0.5" background_color="AAA" />
+        </LinearLayout>
+        <UILabel width="match_parent" height="wrap_content" margin="0 12" text="@string/outline_description_2" font="HelveticaNeue:14" text_color="333" number_of_lines="0"/>
+        <!--  3  -->
+        <LinearLayout width="match_parent" height="wrap_content" padding="24 0 12 0" orientation="vertical">
+            <UILabel width="wrap_content" height="wrap_content" margin="4 12" text="@string/outline_title_3" font="HelveticaNeue-Bold:14" text_color="666" />
+            <UIView width="match_parent" height="0.5" background_color="AAA" />
+        </LinearLayout>
+        <UILabel width="match_parent" height="wrap_content" margin="0 12" text="@string/outline_description_3" font="HelveticaNeue:14" text_color="333" number_of_lines="0"/>
+        <!--  4  -->
+        <LinearLayout width="match_parent" height="wrap_content" padding="24 0 12 0" orientation="vertical">
+            <UILabel width="wrap_content" height="wrap_content" margin="4 12" text="@string/outline_title_4" font="HelveticaNeue-Bold:14" text_color="666" />
+            <UIView width="match_parent" height="0.5" background_color="AAA" />
+        </LinearLayout>
+        <UILabel width="match_parent" height="wrap_content" margin="0 12" text="@string/outline_description_4" font="HelveticaNeue:14" text_color="333" number_of_lines="0"/>
+    </LinearLayout>
+</XMLLayouts>
