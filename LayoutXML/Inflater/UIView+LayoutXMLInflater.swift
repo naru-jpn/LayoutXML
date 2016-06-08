@@ -34,7 +34,7 @@ extension UIView {
     class func view(layoutXMLElement layoutXMLElement: LayoutXMLInflater.LayoutXMLElement) -> Self {
         
         let view = self.init()
-        let attributes = layoutXMLElement.attributes
+        let attributes: [String: String] = layoutXMLElement.attributes
         
         // layout id
         if let value = attributes[LayoutXML.Constants.LayoutID] {

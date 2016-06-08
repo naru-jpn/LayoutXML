@@ -13,11 +13,5 @@ import Foundation
 
 class RelativeLayout: UIView, LayoutXMLLayouter {
     
-    func requestLayout() {
-        
-    }
     
-    func layout() {
-        
-    }
 }

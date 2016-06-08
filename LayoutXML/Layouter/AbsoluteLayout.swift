@@ -22,31 +22,31 @@ class AbsoluteLayout: UIView, LayoutXMLLayouter {
         // match parent
         else if sizeInfo.width == LayoutXMLLength.MatchParent {
             
-            if let superview = superview {
+            if let superview: UIView = superview {
                 _size.width = superview._size.width - (margin.left + margin.right) - (superview.padding.left + superview.padding.right)
             } else {
                 _size.width = 0.0
             }
             
-            for subview in subviews {
+            for subview in self.subviews {
                 subview.measureWidth()
             }
         }
         // wrap content
         else if sizeInfo.width == LayoutXMLLength.WrapContent {
             
-            let matchParents: [UIView] = subviews.flatMap { subview in
+            let matchParents: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
                 return subview.sizeInfo.width == LayoutXMLLength.MatchParent ? subview : nil
             }
-            let others: [UIView] = subviews.flatMap { subview in
+            let others: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
                 return subview.sizeInfo.width != LayoutXMLLength.MatchParent ? subview : nil
             }
-            
+
             for subview in others {
                 subview.measureWidth()
             }
-            
-            _size.width = others.map { subview in
+
+            _size.width = others.map { (subview: UIView) -> CGFloat in
                 return subview._size.width + (subview.margin.left + subview.margin.right) + (padding.left + padding.right)
             }.maxElement() ?? 0.0
             
@@ -73,23 +73,23 @@ class AbsoluteLayout: UIView, LayoutXMLLayouter {
         // match parent
         else if sizeInfo.height == LayoutXMLLength.MatchParent {
             
-            if let superview = superview {
+            if let superview: UIView = superview {
                 _size.height = superview._size.height - (margin.top + margin.bottom) - (superview.padding.top + superview.padding.bottom)
             } else {
                 _size.height = 0.0
             }
             
-            for subview in subviews {
+            for subview in self.subviews {
                 subview.measureHeight()
             }
         }
         // wrap content
         else if sizeInfo.height == LayoutXMLLength.WrapContent {
             
-            let matchParents: [UIView] = subviews.flatMap { subview in
+            let matchParents: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
                 return subview.sizeInfo.height == LayoutXMLLength.MatchParent ? subview : nil
             }
-            let others: [UIView] = subviews.flatMap { subview in
+            let others: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
                 return subview.sizeInfo.height != LayoutXMLLength.MatchParent ? subview : nil
             }
             
@@ -97,7 +97,7 @@ class AbsoluteLayout: UIView, LayoutXMLLayouter {
                 subview.measureHeight()
             }
             
-            _size.height = others.map { subview in
+            _size.height = others.map { (subview: UIView) -> CGFloat in
                 return subview._size.height + (subview.margin.top + subview.margin.bottom) + (padding.top + padding.bottom)
             }.maxElement() ?? 0.0
             

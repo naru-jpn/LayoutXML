@@ -25,7 +25,7 @@ final class LayoutXMLInflater: NSObject, NSXMLParserDelegate {
         }
         
         var description: String {
-            if 0 == children.count {
+            if children.count == 0 {
                 return "\(name)"
             } else {
                 return "\(name): \(children)"

@@ -29,7 +29,7 @@ extension LayoutXML {
         /// - parameter string: string to get font: 'font-name:font_size'
         /// - returns: font
         class func font(string: String) -> UIFont? {
-            let components = string.componentsSeparatedByString(":")
+            let components: [String] = string.componentsSeparatedByString(":")
             if components.count == 2 {
                 let name: String = components[0]
                 let size: CGFloat = {
@@ -54,7 +54,7 @@ extension LayoutXML {
                 /// - returns: complete color code
                 func completeCode(code code: String) -> String {
                     
-                    let length = code.characters.count
+                    let length: Int = code.characters.count
                     switch length {
                     case 6:
                         return "FF".stringByAppendingString(code)
@@ -82,12 +82,12 @@ extension LayoutXML {
             
             // @code
             if string.hasPrefix("@code/") {
-                let code = string.stringByReplacingOccurrencesOfString("@code/", withString: "")
+                let code: String = string.stringByReplacingOccurrencesOfString("@code/", withString: "")
                 return color(code: code)
             }
             // @color
             if string.hasPrefix("@color/") {
-                let name = string.stringByReplacingOccurrencesOfString("@color/", withString: "")
+                let name: String = string.stringByReplacingOccurrencesOfString("@color/", withString: "")
                 guard let code = ColorStore.store.dictionary?[name] else {
                     return nil
                 }
@@ -121,7 +121,7 @@ extension LayoutXML {
                     if let path = NSBundle.mainBundle().pathForResource(LayoutXML.Constants.ColorPlist, ofType: "plist") {
                         if NSFileManager.defaultManager().fileExistsAtPath(path) {
                             store.dictionary = {
-                                guard let dictionary = NSDictionary(contentsOfFile: path) else {
+                                guard let dictionary: NSDictionary = NSDictionary(contentsOfFile: path) else {
                                     return nil
                                 }
                                 var temp: [String: String] = [:]

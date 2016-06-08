@@ -13,11 +13,4 @@ import Foundation
 
 class LinearLayout: UIView, LayoutXMLLayouter {
     
-    func requestLayout() {
-        
-    }
-    
-    func layout() {
-        
-    }
 }
