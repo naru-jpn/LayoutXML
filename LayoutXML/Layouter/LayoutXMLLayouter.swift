@@ -10,16 +10,43 @@ import UIKit
 import Foundation
 
 /// Protocol to layout child views.
-protocol LayoutXMLLayouter {
+public protocol LayoutXMLLayouter {
     
-    /// Request layout for current layout settings.
+    /// Refresh Layout
     func requestLayout()
     
-    /// Layout children.
+    /// Layout Children
     func layout()
 }
 
-/// Manage shared serial queue.
+/// Defalut implementations for layouter of UIView.
+extension LayoutXMLLayouter where Self: UIView {
+    
+    /// Execute measure and layout subviews.
+    public func requestLayout() {
+        self.measure()
+        self.layout()
+    }
+    
+    /// Layout Recursively
+    public func layout() {
+        
+        self.frame = CGRectMake(_origin.x, _origin.y, _size.width, _size.height)
+        
+        // set subview frames
+        for subview in self.subviews {
+            subview._origin.x = padding.left + subview.margin.left
+            subview._origin.y = padding.top + subview.margin.top
+            subview.frame = CGRectMake(subview._origin.x, subview._origin.y, subview._size.width, subview._size.height)
+            
+            if let layouter = subview as? LayoutXMLLayouter {
+                layouter.layout()
+            }
+        }
+    }
+}
+
+/// Manage shared serial queue for work of layout.
 class LayoutXMLLayouterWorker: NSObject, OS_dispatch_queue {
     class var worker: OS_dispatch_queue {
         struct Static {

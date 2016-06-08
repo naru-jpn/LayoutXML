@@ -12,15 +12,7 @@ import Foundation
 @objc (AbsoluteLayout)
 
 class AbsoluteLayout: UIView, LayoutXMLLayouter {
-    
-    // MARK: - LayoutXMLLayouter
-    
-    internal func requestLayout() {
-        // TODO: add thread control
-        measure()
-        layout()
-    }
-    
+            
     override func measureWidth() {
         
         // gone
@@ -72,7 +64,6 @@ class AbsoluteLayout: UIView, LayoutXMLLayouter {
         }
     }
     
-    
     override func measureHeight() {
         
         // gone
@@ -120,27 +111,6 @@ class AbsoluteLayout: UIView, LayoutXMLLayouter {
             
             for subview in subviews {
                 subview.measureHeight()
-            }
-        }
-    }
-    
-    override func measure() {
-        measureWidth()
-        measureHeight()
-    }
-    
-    internal func layout() {
-        
-        self.frame = CGRectMake(_origin.x, _origin.y, _size.width, _size.height)
-        
-        // set subview frames
-        for subview in subviews {
-            subview._origin.x = padding.left + subview.margin.left
-            subview._origin.y = padding.top + subview.margin.top
-            subview.frame = CGRectMake(subview._origin.x, subview._origin.y, subview._size.width, subview._size.height)
-            
-            if let layouter = subview as? LayoutXMLLayouter {
-                layouter.layout()
             }
         }
     }
