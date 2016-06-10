@@ -12,6 +12,12 @@ import Foundation
 /// Protocol to layout child views.
 public protocol LayoutXMLLayouter {
     
+    func measureSubviews()
+    
+    func measureSubviewsHorizontal()
+    
+    func measureSubviewsVertical()
+    
     /// Refresh Layout
     func requestLayout()
     
@@ -25,23 +31,20 @@ extension LayoutXMLLayouter where Self: UIView {
     /// Execute measure and layout subviews.
     public func requestLayout() {
         self.measure()
+        self.measureSubviews()
         self.layout()
     }
     
-    /// Layout Recursively
-    public func layout() {
+    public func measureSubviews() {
         
-        self.frame = CGRectMake(_origin.x, _origin.y, _size.width, _size.height)
+        measureSubviewsHorizontal()
+        measureSubviewsVertical()
         
-        // set subview frames
-        for subview in self.subviews {
-            subview._origin.x = padding.left + subview.margin.left
-            subview._origin.y = padding.top + subview.margin.top
-            subview.frame = CGRectMake(subview._origin.x, subview._origin.y, subview._size.width, subview._size.height)
-            
-            if let layouter = subview as? LayoutXMLLayouter {
-                layouter.layout()
-            }
+        let layouters: [LayoutXMLLayouter] = self.subviews.flatMap { (subview: UIView) -> LayoutXMLLayouter? in
+            return subview as? LayoutXMLLayouter
+        }
+        for layouter in layouters {
+            layouter.measureSubviews()
         }
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLLayouts>
+    <LinearLayout width="match_parent" height="match_parent" gravity="center" margin-top="20" background_color="FFF">
+        <UIView width="0.0" height="20" background_color="AAA" weight="1.0" />
+        <UIView width="0.0" height="20" background_color="CCC" weight="1.0" />
+        <LinearLayout width="0.0" height="match_parent" background_color="DDF" weight="3.0" weight_sum="3.0">
+            <UIView width="0.0" height="match_parent" background_color="AAA" weight="0.5" />
+            <UIView width="0.0" height="match_parent" background_color="CCC" weight="1.0" />
+            <LinearLayout width="0.0" height="match_parent" background_color="666" margin="4.0" padding="4.0" orientation="vertical" weight="1.0">
+                <UIView width="match_parent" height="0.0" background_color="AAA" weight="1.0" />
+                <UIView width="match_parent" height="0.0" background_color="EEE" weight="2.0" />
+                <UIView width="match_parent" height="0.0" background_color="DDD" weight="3.0" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</XMLLayouts>

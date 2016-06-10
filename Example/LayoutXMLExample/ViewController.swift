@@ -12,10 +12,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        self.view.backgroundColor = UIColor.whiteColor()
+        
+        self.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.view.loadLayoutXML(resource: "absolute_layout")
+        self.view.loadLayoutXML(resource: "linear_layout")
     }
 
     override func didReceiveMemoryWarning() {

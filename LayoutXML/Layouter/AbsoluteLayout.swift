@@ -11,19 +11,19 @@ import Foundation
 
 @objc (AbsoluteLayout)
 
-class AbsoluteLayout: UIView, LayoutXMLLayouter {
+public class AbsoluteLayout: UIView, LayoutXMLLayouter {
             
-    override func measureWidth() {
+    override public func measureWidth() {
         
-        // gone
-        if visibility == .Gone {
-            _size.width = LayoutXMLLength.Zero
+        // Gone
+        if self.visibility == .Gone {
+            self._size.width = LayoutXMLLength.Zero
         }
-        // match parent
-        else if sizeInfo.width == LayoutXMLLength.MatchParent {
+        // Match Parent
+        else if self.sizeInfo.width == LayoutXMLLength.MatchParent {
             
-            if let superview: UIView = superview {
-                _size.width = superview._size.width - (margin.left + margin.right) - (superview.padding.left + superview.padding.right)
+            if let superview: UIView = self.superview {
+                self._size.width = superview._size.width - (margin.left + margin.right) - (superview.padding.left + superview.padding.right)
             } else {
                 _size.width = 0.0
             }
@@ -32,8 +32,8 @@ class AbsoluteLayout: UIView, LayoutXMLLayouter {
                 subview.measureWidth()
             }
         }
-        // wrap content
-        else if sizeInfo.width == LayoutXMLLength.WrapContent {
+        // Wrap Content
+        else if self.sizeInfo.width == LayoutXMLLength.WrapContent {
             
             let matchParents: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
                 return subview.sizeInfo.width == LayoutXMLLength.MatchParent ? subview : nil
@@ -41,30 +41,30 @@ class AbsoluteLayout: UIView, LayoutXMLLayouter {
             let others: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
                 return subview.sizeInfo.width != LayoutXMLLength.MatchParent ? subview : nil
             }
-
+            
             for subview in others {
                 subview.measureWidth()
             }
-
+            
             _size.width = others.map { (subview: UIView) -> CGFloat in
                 return subview._size.width + (subview.margin.left + subview.margin.right) + (padding.left + padding.right)
-            }.maxElement() ?? 0.0
+                }.maxElement() ?? 0.0
             
             for subview in matchParents {
                 subview.measureWidth()
             }
         }
-        // others
+        // Others
         else {
-            _size.width = sizeInfo.width
+            self._size.width = self.sizeInfo.width
             
-            for subview in subviews {
+            for subview in self.subviews {
                 subview.measureWidth()
             }
         }
     }
     
-    override func measureHeight() {
+    override public func measureHeight() {
         
         // gone
         if visibility == .Gone {
@@ -111,6 +111,30 @@ class AbsoluteLayout: UIView, LayoutXMLLayouter {
             
             for subview in subviews {
                 subview.measureHeight()
+            }
+        }
+    }
+    
+    public func measureSubviewsHorizontal() {
+        
+    }
+    
+    public func measureSubviewsVertical() {
+        
+    }
+    
+    public func layout() {
+        
+        self.frame = CGRectMake(_origin.x, _origin.y, _size.width, _size.height)
+        
+        // set subview frames
+        for subview in self.subviews {
+            subview._origin.x = padding.left + subview.margin.left
+            subview._origin.y = padding.top + subview.margin.top
+            subview.frame = CGRectMake(subview._origin.x, subview._origin.y, subview._size.width, subview._size.height)
+            
+            if let layouter = subview as? LayoutXMLLayouter {
+                layouter.layout()
             }
         }
     }

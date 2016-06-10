@@ -71,8 +71,39 @@ extension UIView {
         
         // background color
         if let value = attributes[LayoutXML.Constants.BackgroundColor] {
-            if let color = LayoutXML.R.color(string: value) {
+            if let color: UIColor = LayoutXML.R.color(string: value) {
                 view.backgroundColor = color
+            }
+        }
+        
+        // weight
+        if let value = attributes[LayoutXML.Constants.LinearLayout.Weight] {
+            if let double: Double = Double(value), let weight: CGFloat = CGFloat(double) {
+                view.weight = weight
+            }
+        }
+        
+        // gravity
+        if let value = attributes[LayoutXML.Constants.LinearLayout.Gravity] {
+            view.gravity = LayoutXMLGravity(string: value)
+        }
+
+        // layout gravity
+        if let value = attributes[LayoutXML.Constants.LinearLayout.LayoutGravity] {
+            view.layoutGravity = LayoutXMLGravity(string: value)
+        }
+        
+        // for linear layout
+        if let linearLayout = view as! AnyObject as? LinearLayout {
+            
+            // orientation
+            if let value = attributes[LayoutXML.Constants.LinearLayout.Orientation] {
+                linearLayout.orientation = LayoutXMLOrientation(string: value)
+            }
+            
+            // weight sum
+            if let value = attributes[LayoutXML.Constants.LinearLayout.WeightSum], let weightSum: Double = Double(value) {
+                linearLayout.weightSum = CGFloat(weightSum)
             }
         }
         
@@ -92,7 +123,7 @@ extension UIView {
             }
             
             // number of lines
-            if let value = attributes[LayoutXML.Constants.Label.NumberOfLines], let numberOfLines = Int(value) {
+            if let value = attributes[LayoutXML.Constants.Label.NumberOfLines], let numberOfLines: Int = Int(value) {
                 label.numberOfLines = numberOfLines
             }
         }

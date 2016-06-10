@@ -20,6 +20,7 @@
 		43B488C91CDAE32F003F1A55 /* UIView+LayoutXMLInflater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488C61CDAE32F003F1A55 /* UIView+LayoutXMLInflater.swift */; };
 		43B488CB1CDAE7BC003F1A55 /* AbsoluteLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488CA1CDAE7BC003F1A55 /* AbsoluteLayout.swift */; };
 		43B488CE1CDB9D68003F1A55 /* R.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488CC1CDB9D68003F1A55 /* R.swift */; };
+		43BC50B61D08304F004D6E27 /* linear_layout.xml in Resources */ = {isa = PBXBuildFile; fileRef = 43BC50B51D08304F004D6E27 /* linear_layout.xml */; };
 		43E8B9811CD8B73B0063031A /* LayoutXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E8B97C1CD8B73B0063031A /* LayoutXML.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		43B488C61CDAE32F003F1A55 /* UIView+LayoutXMLInflater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+LayoutXMLInflater.swift"; path = "../LayoutXML/Inflater/UIView+LayoutXMLInflater.swift"; sourceTree = "<group>"; };
 		43B488CA1CDAE7BC003F1A55 /* AbsoluteLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbsoluteLayout.swift; sourceTree = "<group>"; };
 		43B488CC1CDB9D68003F1A55 /* R.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.swift; sourceTree = "<group>"; };
+		43BC50B51D08304F004D6E27 /* linear_layout.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = linear_layout.xml; sourceTree = "<group>"; };
 		43E8B97C1CD8B73B0063031A /* LayoutXML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutXML.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +90,7 @@
 			children = (
 				433E2B151CE01BF20090BAF1 /* sample.xml */,
 				433E2B141CE01BF20090BAF1 /* absolute_layout.xml */,
+				43BC50B51D08304F004D6E27 /* linear_layout.xml */,
 			);
 			path = sampleXMLs;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43BC50B61D08304F004D6E27 /* linear_layout.xml in Resources */,
 				432DFD5D1CD85A91007404F0 /* LaunchScreen.storyboard in Resources */,
 				433E2B171CE01BF20090BAF1 /* sample.xml in Resources */,
 				433E2B161CE01BF20090BAF1 /* absolute_layout.xml in Resources */,

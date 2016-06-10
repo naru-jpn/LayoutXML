@@ -52,6 +52,30 @@ public struct LayoutXML {
             static let WrapContent = "wrap_content"
         }
         
+        public struct LinearLayout {
+            
+            static let Weight = "weight"
+            static let WeightSum = "weight_sum"
+            
+            static let Gravity = "gravity"
+            static let LayoutGravity = "layout_gravity"
+            public struct Gravities {
+                static let Top = "top"
+                static let Right = "right"
+                static let Bottom = "bottom"
+                static let Left = "left"
+                static let CenterHorizontal = "center_horizontal"
+                static let CenterVertical = "center_vertical"
+                static let Center = "center"
+            }
+            
+            static let Orientation = "orientation"
+            public struct Orientations {
+                static let Horizontal = "horizontal"
+                static let Vertical = "vertical"
+            }
+        }
+        
         public struct Label {
             
             static let NumberOfLines = "number_of_lines"
@@ -214,6 +238,15 @@ public protocol LayoutXMLLayoutable {
     /// visibility
     var visibility: LayoutXMLVisibility { get set }
     
+    /// weight
+    var weight: CGFloat { get set }
+    
+    /// gravity
+    var gravity: LayoutXMLGravity { get set }
+    
+    /// layout gravity
+    var layoutGravity: LayoutXMLGravity { get set }
+    
     /// Update visibility
     func updateVisibility()
     
@@ -221,118 +254,173 @@ public protocol LayoutXMLLayoutable {
     func refreshLayout()
     
     /// Measure
+    func measure()
     func measureWidth()
     func measureHeight()
-    func measure()
-}
-
-private struct AssociateKeys {
-    static var layoutID: String = "__layoutID"
-    static var _size: String = "__size"
-    static var _origin: String = "__origin"
-    static var margin: String = "_margin"
-    static var padding: String = "_padding"
-    static var sizeInfo: String = "_sizeInfo"
-    static var visibility: String = "_visibility"
 }
 
 extension UIView: LayoutXMLLayoutable {
     
+    private struct AssociateKeys {
+        static var layoutID: String = "__layoutID"
+        static var _size: String = "__size"
+        static var _origin: String = "__origin"
+        static var margin: String = "_margin"
+        static var padding: String = "_padding"
+        static var sizeInfo: String = "_sizeInfo"
+        static var visibility: String = "_visibility"
+        static var weight: String = "_weight"
+        static var gravity: String = "_gravity"
+        static var layoutGravity: String = "_layoutGravity"
+    }
+    
+    /// Getter / Setter
+    
+    private func get(pointer: UnsafePointer<Void>) -> AnyObject? {
+        return objc_getAssociatedObject(self, pointer)
+    }
+    
+    private func set(pointer: UnsafePointer<Void>, object: AnyObject) {
+        objc_setAssociatedObject(self, pointer, object, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+    }
+
     /// layout id
     public var layoutID: Int {
         get {
-            guard let number = objc_getAssociatedObject(self, &AssociateKeys.layoutID) as? NSNumber else {
+            guard let number = get(&AssociateKeys.layoutID) as? NSNumber else {
                 return 0
             }
             return number.integerValue
         }
         set {
-            let number = NSNumber(integer: newValue)
-            objc_setAssociatedObject(self, &AssociateKeys.layoutID, number, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+            let number: NSNumber = NSNumber(integer: newValue)
+            set(&AssociateKeys.layoutID, object: number)
         }
     }
     
     /// temporary stored information for calculated size
     public var _size: CGSize {
         get {
-            guard let value = objc_getAssociatedObject(self, &AssociateKeys._size) as? NSValue else {
+            guard let value = get(&AssociateKeys._size) as? NSValue else {
                 return CGSizeZero
             }
             return value.CGSizeValue()
         }
         set {
-            let value = NSValue(CGSize: newValue)
-            objc_setAssociatedObject(self, &AssociateKeys._size, value, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+            let value: NSValue = NSValue(CGSize: newValue)
+            set(&AssociateKeys._size, object: value)
         }
     }
     
     /// temporary stored information for calculated origin
     public var _origin: CGPoint {
         get {
-            guard let value = objc_getAssociatedObject(self, &AssociateKeys._origin) as? NSValue else {
+            guard let value = get(&AssociateKeys._origin) as? NSValue else {
                 return CGPointZero
             }
             return value.CGPointValue()
         }
         set {
-            let value = NSValue(CGPoint: newValue)
-            objc_setAssociatedObject(self, &AssociateKeys._origin, value, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+            let value: NSValue = NSValue(CGPoint: newValue)
+            set(&AssociateKeys._origin, object: value)
         }
     }
     
     /// margin for view
     public var margin: LayoutXMLEdgeInsets {
         get {
-            guard let value = objc_getAssociatedObject(self, &AssociateKeys.margin) as? NSValue else {
+            guard let value = get(&AssociateKeys.margin) as? NSValue else {
                 return LayoutXMLEdgeInsets.Zero
             }
             return value.UIEdgeInsetsValue()
         }
         set {
-            let value = NSValue(UIEdgeInsets: newValue)
-            objc_setAssociatedObject(self, &AssociateKeys.margin, value, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+            let value: NSValue = NSValue(UIEdgeInsets: newValue)
+            set(&AssociateKeys.margin, object: value)
         }
     }
     
     /// padding of view
     public var padding: LayoutXMLEdgeInsets {
         get {
-            guard let value = objc_getAssociatedObject(self, &AssociateKeys.padding) as? NSValue else {
+            guard let value = get(&AssociateKeys.padding) as? NSValue else {
                 return UIEdgeInsetsZero
             }
             return value.UIEdgeInsetsValue()
         }
         set {
-            let value = NSValue(UIEdgeInsets: newValue)
-            objc_setAssociatedObject(self, &AssociateKeys.padding, value, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+            let value: NSValue = NSValue(UIEdgeInsets: newValue)
+            set(&AssociateKeys.padding, object: value)
         }
     }
     
     /// information of size
     public var sizeInfo: LayoutXMLSize {
         get {
-            guard let value = objc_getAssociatedObject(self, &AssociateKeys.sizeInfo) as? NSValue else {
+            guard let value = get(&AssociateKeys.sizeInfo) as? NSValue else {
                 return LayoutXMLSize.Zero
             }
             return value.CGSizeValue().LayoutXMLSizeValue()
         }
         set {
             let value = NSValue(CGSize: newValue.CGSizeValue())
-            objc_setAssociatedObject(self, &AssociateKeys.sizeInfo, value, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+            set(&AssociateKeys.sizeInfo, object: value)
         }
     }
     
     /// visibility
     public var visibility: LayoutXMLVisibility {
         get {
-            guard let number = objc_getAssociatedObject(self, &AssociateKeys.visibility) as? NSNumber, let visibility = LayoutXMLVisibility.init(rawValue: number.integerValue) else {
+            guard let number = get(&AssociateKeys.visibility) as? NSNumber, let visibility = LayoutXMLVisibility(rawValue: number.integerValue) else {
                 return LayoutXMLVisibility.Visible
             }
             return visibility
         }
         set {
-            let number = NSNumber(integer: newValue.rawValue)
-            objc_setAssociatedObject(self, &AssociateKeys.visibility, number, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+            let number: NSNumber = NSNumber(integer: newValue.rawValue)
+            set(&AssociateKeys.visibility, object: number)
+        }
+    }
+    
+    /// weight
+    public var weight: CGFloat {
+        get {
+            guard let number: NSNumber = get(&AssociateKeys.weight) as? NSNumber, let weight: Float = number.floatValue else {
+                return 0.0
+            }
+            return CGFloat(weight)
+        }
+        set {
+            let number: NSNumber = NSNumber(float: Float(newValue))
+            set(&AssociateKeys.weight, object: number)
+        }
+    }
+    
+    /// gravity
+    public var gravity: LayoutXMLGravity {
+        get {
+            guard let number: NSNumber = get(&AssociateKeys.gravity) as? NSNumber, let rawValue: Int = number.integerValue else {
+                return LayoutXMLGravity.Default
+            }
+            return LayoutXMLGravity(rawValue: rawValue)
+        }
+        set {
+            let number: NSNumber = NSNumber(integer: newValue.rawValue)
+            set(&AssociateKeys.gravity, object: number)
+        }
+    }
+
+    /// layout gravity
+    public var layoutGravity: LayoutXMLGravity {
+        get {
+            guard let number: NSNumber = get(&AssociateKeys.layoutGravity) as? NSNumber, let rawValue: Int = number.integerValue else {
+                return LayoutXMLGravity.Default
+            }
+            return LayoutXMLGravity(rawValue: rawValue)
+        }
+        set {
+            let number: NSNumber = NSNumber(integer: newValue.rawValue)
+            set(&AssociateKeys.layoutGravity, object: number)
         }
     }
     
@@ -353,7 +441,7 @@ extension UIView: LayoutXMLLayoutable {
             measure()
         }
         
-        // RefreshAll Layouter
+        // Refresh All Layouter
         for subview in self.subviews {
             if let layouter = subview as? LayoutXMLLayouter {
                 layouter.requestLayout()
@@ -363,6 +451,12 @@ extension UIView: LayoutXMLLayoutable {
     
     // MARK: Measures
     
+    /// Measure
+    public func measure() {
+        measureWidth()
+        measureHeight()
+    }
+
     /// Measure Width
     public func measureWidth() {
         
@@ -483,11 +577,5 @@ extension UIView: LayoutXMLLayoutable {
         else {
             _size.height = sizeInfo.height
         }
-    }
-    
-    /// Measure
-    public func measure() {
-        measureWidth()
-        measureHeight()
     }
 }
