@@ -12,6 +12,10 @@ import Foundation
 extension UIView {
     
     func loadLayoutXML(resource resource: String) {
+        self.loadLayoutXML(resource: resource, completion: nil)
+    }
+    
+    func loadLayoutXML(resource resource: String, completion: (() -> ())?) {
         
         self._size = self.frame.size
         
@@ -21,6 +25,9 @@ extension UIView {
                 self.addSubview(view)
                 if let layouter = view as? LayoutXMLLayouter {
                     layouter.requestLayout()
+                    if let completion = completion {
+                        completion()
+                    }
                 }
             }
         }
@@ -37,8 +44,8 @@ extension UIView {
         let attributes: [String: String] = layoutXMLElement.attributes
         
         // layout id
-        if let value = attributes[LayoutXML.Constants.LayoutID] {
-            if let layoutID = Int(value) {
+        if let string = attributes[LayoutXML.Constants.LayoutID] {
+            if let layoutID = LayoutXML.R.id(string) {
                 view.layoutID = layoutID
             }
         }

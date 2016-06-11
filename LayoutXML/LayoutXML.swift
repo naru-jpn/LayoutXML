@@ -578,4 +578,21 @@ extension UIView: LayoutXMLLayoutable {
             _size.height = sizeInfo.height
         }
     }
+    
+    /// Search View From Layout ID
+    public func findViewByID(id: Int) -> UIView? {
+
+        for subview in self.subviews {
+            
+            if subview.layoutID == id {
+                return subview
+            }
+            for subsubview in subview.subviews {
+                if let view: UIView? = subsubview.findViewByID(id) {
+                    return view
+                }
+            }
+        }
+        return nil
+    }
 }

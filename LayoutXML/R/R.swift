@@ -14,6 +14,11 @@ extension LayoutXML {
     /// Class managing resources.
     class R {
         
+        /// Return layout id from identifier
+        class func id(string: String) -> Int? {
+            return LayoutIDStore.id(string: string)
+        }
+        
         /// Return localized string or plane text.
         /// - parameter string: string to get text
         /// - returns: localized string or plane text
@@ -49,7 +54,7 @@ extension LayoutXML {
             
             func color(code code: String) -> UIColor? {
                 
-                /// Get omplete color code.
+                /// Get complete color code.
                 /// - parameter code: color code
                 /// - returns: complete color code
                 func completeCode(code code: String) -> String {
@@ -99,6 +104,48 @@ extension LayoutXML {
             // ...
             
             return color(code: string)
+        }
+        
+        /// Class to store layout id
+        private class LayoutIDStore {
+            
+            var incremented: Int = 1
+            
+            var dictionary: [String: Int] = [:]
+            
+            class var store: LayoutIDStore {
+                struct Static {
+                    static let instance: LayoutIDStore = LayoutIDStore()
+                }
+                return Static.instance
+            }
+            
+            class func id(string string: String) -> Int? {
+                
+                if string.hasPrefix("@+id/") {
+                    
+                    let name: String = string.stringByReplacingOccurrencesOfString("@+id/", withString: "")
+                    
+                    if let id: Int = store.dictionary[name] {
+                        return id
+                    }
+                    
+                    self.store.dictionary[name] = store.incremented
+                    store.incremented = store.incremented + 1
+                                        
+                    return store.incremented - 1
+                }
+                else if string.hasPrefix("@id/") {
+                    
+                    let name: String = string.stringByReplacingOccurrencesOfString("@id/", withString: "")
+                    
+                    return store.dictionary[name]
+                }
+                else {
+                    
+                    return nil
+                }
+            }
         }
         
         /// Class to store color data from plist
