@@ -76,6 +76,37 @@ public struct LayoutXML {
             }
         }
         
+        public struct RelativeLayout {
+            
+            public struct AlignRules {
+                
+                public struct Aligns {
+                    static let Top = "align_top"
+                    static let Left = "align_left"
+                    static let Bottom = "align_bottom"
+                    static let Right = "align_right"
+                }
+                
+                public struct Positions {
+                    static let Top = "above"
+                    static let Left = "to_left_of"
+                    static let Bottom = "below"
+                    static let Right = "to_right_of"
+                }
+                
+                static let AlignParent = "align_parent"
+                public struct AlignParents {
+                    static let Top = "top"
+                    static let Left = "left"
+                    static let Bottom = "bottom"
+                    static let Right = "right"
+                    static let CenterHorizontal = "center_horizontal"
+                    static let CenterVertical = "center_vertical"
+                    static let Center = "center"
+                }
+            }
+        }
+        
         public struct Label {
             
             static let NumberOfLines = "number_of_lines"
@@ -247,6 +278,9 @@ public protocol LayoutXMLLayoutable {
     /// layout gravity
     var layoutGravity: LayoutXMLGravity { get set }
     
+    /// dependency
+    var dependency: LayoutXMLDependency { get set }
+    
     /// Update visibility
     func updateVisibility()
     
@@ -272,6 +306,7 @@ extension UIView: LayoutXMLLayoutable {
         static var weight: String = "_weight"
         static var gravity: String = "_gravity"
         static var layoutGravity: String = "_layoutGravity"
+        static var dependency: String = "_dependency"
     }
     
     /// Getter / Setter
@@ -421,6 +456,20 @@ extension UIView: LayoutXMLLayoutable {
         set {
             let number: NSNumber = NSNumber(integer: newValue.rawValue)
             set(&AssociateKeys.layoutGravity, object: number)
+        }
+    }
+    
+    /// dependency
+    public var dependency: LayoutXMLDependency {
+        get {
+            guard let values: NSArray = get(&AssociateKeys.dependency) as? NSArray else {
+                let anchors: LayoutXMLRelativeAnchors = LayoutXMLRelativeAnchors(top: nil, left: nil, bottom: nil, right: nil)
+                return LayoutXMLDependency(anchors: anchors, alignParent: .Default)
+            }
+            return LayoutXMLDependency(values: values)
+        }
+        set {
+            set(&AssociateKeys.dependency, object: newValue.values)
         }
     }
     
@@ -587,10 +636,8 @@ extension UIView: LayoutXMLLayoutable {
             if subview.layoutID == id {
                 return subview
             }
-            for subsubview in subview.subviews {
-                if let view: UIView? = subsubview.findViewByID(id) {
-                    return view
-                }
+            if let view: UIView? = subview.findViewByID(id) {
+                return view
             }
         }
         return nil

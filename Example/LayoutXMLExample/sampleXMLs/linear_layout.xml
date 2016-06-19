@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <XMLLayouts>
-    <LinearLayout width="match_parent" height="match_parent" gravity="center" margin-top="20" background_color="FFF" id="@+id/foundation">
+    <LinearLayout width="match_parent" height="match_parent" gravity="center" margin-top="20" background_color="FFF" id="@+id/linear_foundation">
         <UIView width="0.0" height="20" background_color="AAA" weight="1.0" />
         <UIView width="0.0" height="20" background_color="CCC" weight="1.0" />
         <LinearLayout width="0.0" height="match_parent" padding="4.0" background_color="EEE" weight="3.0" weight_sum="3.0">

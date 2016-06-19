@@ -100,6 +100,55 @@ extension UIView {
             view.layoutGravity = LayoutXMLGravity(string: value)
         }
         
+        // dependency
+        if let value = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.AlignParent] {
+            view.dependency.alignParent = LayoutXMLRelativeAlignParent(string: value)
+        }
+        
+        // dependency (align)
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.Top] {
+            if let layoutID: Int = LayoutXML.R.id(string) {
+                view.dependency.anchors.top = LayoutXMLRelativeAnchor(type: .Align, layoutID: layoutID)
+            }
+        }
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.Left] {
+            if let layoutID: Int = LayoutXML.R.id(string) {
+                view.dependency.anchors.left = LayoutXMLRelativeAnchor(type: .Align, layoutID: layoutID)
+            }
+        }
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.Bottom] {
+            if let layoutID: Int = LayoutXML.R.id(string) {
+                view.dependency.anchors.bottom = LayoutXMLRelativeAnchor(type: .Align, layoutID: layoutID)
+            }
+        }
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.Right] {
+            if let layoutID: Int = LayoutXML.R.id(string) {
+                view.dependency.anchors.right = LayoutXMLRelativeAnchor(type: .Align, layoutID: layoutID)
+            }
+        }
+        
+        // dependency (position)
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.Top] {
+            if let layoutID: Int = LayoutXML.R.id(string) {
+                view.dependency.anchors.top = LayoutXMLRelativeAnchor(type: .Position, layoutID: layoutID)
+            }
+        }
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.Right] {
+            if let layoutID: Int = LayoutXML.R.id(string) {
+                view.dependency.anchors.left = LayoutXMLRelativeAnchor(type: .Position, layoutID: layoutID)
+            }
+        }
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.Bottom] {
+            if let layoutID: Int = LayoutXML.R.id(string) {
+                view.dependency.anchors.bottom = LayoutXMLRelativeAnchor(type: .Position, layoutID: layoutID)
+            }
+        }
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.Left] {
+            if let layoutID: Int = LayoutXML.R.id(string) {
+                view.dependency.anchors.right = LayoutXMLRelativeAnchor(type: .Position, layoutID: layoutID)
+            }
+        }
+        
         // for linear layout
         if let linearLayout = view as! AnyObject as? LinearLayout {
             

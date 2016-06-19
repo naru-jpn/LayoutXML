@@ -48,7 +48,7 @@ public class AbsoluteLayout: UIView, LayoutXMLLayouter {
             
             _size.width = others.map { (subview: UIView) -> CGFloat in
                 return subview._size.width + (subview.margin.left + subview.margin.right) + (padding.left + padding.right)
-                }.maxElement() ?? 0.0
+            }.maxElement() ?? 0.0
             
             for subview in matchParents {
                 subview.measureWidth()
@@ -124,6 +124,10 @@ public class AbsoluteLayout: UIView, LayoutXMLLayouter {
     }
     
     public func layout() {
+        
+        if self.visibility == .Gone {
+            return
+        }
         
         self.frame = CGRectMake(_origin.x, _origin.y, _size.width, _size.height)
         

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLLayouts>
+    <RelativeLayout width="match_parent" height="match_parent" gravity="center" margin-top="20" background_color="DDF" id="@+id/relative_foundation">
+        <UIView width="8" margin="4" align_top="@+id/message" align_bottom="@id/message" background_color="FFF" id="@+id/line" />
+        <UILabel to_right_of="@id/line" align_parent="right" height="wrap_content" font="HelveticaNeue:14" text_color="@color/text" text="sample message\nsample message\nsample message\nsample message" number_of_lines="0" id="@id/message" background_color="FFF" />
+    </RelativeLayout>
+</XMLLayouts>

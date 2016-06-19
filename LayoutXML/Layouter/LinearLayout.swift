@@ -46,21 +46,21 @@ public struct LayoutXMLGravity: OptionSetType {
         func gravity(component: String) -> LayoutXMLGravity {
             switch component {
             case LayoutXML.Constants.LinearLayout.Gravities.Left:
-                return LayoutXMLGravity.Left
+                return .Left
             case LayoutXML.Constants.LinearLayout.Gravities.Right:
-                return LayoutXMLGravity.Right
+                return .Right
             case LayoutXML.Constants.LinearLayout.Gravities.CenterHorizontal:
-                return LayoutXMLGravity.CenterHorizontal
+                return .CenterHorizontal
             case LayoutXML.Constants.LinearLayout.Gravities.Top:
-                return LayoutXMLGravity.Top
+                return .Top
             case LayoutXML.Constants.LinearLayout.Gravities.Bottom:
-                return LayoutXMLGravity.Bottom
+                return .Bottom
             case LayoutXML.Constants.LinearLayout.Gravities.CenterVertical:
-                return LayoutXMLGravity.CenterVertical
+                return .CenterVertical
             case LayoutXML.Constants.LinearLayout.Gravities.Center:
-                return LayoutXMLGravity.Center
+                return .Center
             default:
-                return LayoutXMLGravity.Default
+                return .Default
             }
         }
         
