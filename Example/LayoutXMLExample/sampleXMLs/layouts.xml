@@ -11,7 +11,7 @@
         </LinearLayout>
         <RelativeLayout width="match_parent" height="0.0" margin="4.0" background_color="DDF" id="@+id/relative_foundation" weight="1.0">
             <UIView width="8" margin="4" align_top="@+id/message" align_bottom="@id/message" background_color="BBB" id="@+id/line" />
-            <UILabel to_right_of="@id/line" align_parent="right" height="wrap_content" font="HelveticaNeue:14" text_color="@color/text" text="sample message\nsample message\nsample message\nsample message" number_of_lines="0" id="@id/message" background_color="DDD" />
+            <UILabel to_right_of="@id/line" align_parent="right" height="wrap_content" font="HelveticaNeue:14" text_color="@color/text" text="sample message\nsample message\nsample message\nsample message\nsample message\nsample message" number_of_lines="0" id="@id/message" background_color="DDD" />
         </RelativeLayout>
     </LinearLayout>
 </XMLLayouts>

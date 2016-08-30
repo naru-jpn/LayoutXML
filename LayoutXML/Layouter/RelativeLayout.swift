@@ -9,12 +9,17 @@
 import UIKit
 import Foundation
 
+/// Anchor Type
 public enum LayoutXMLRelativeAnchorType: Int {
+    /// No Anchor
     case None = 0
+    /// Adjust Position with Anchor View
     case Position
+    /// Adjust Alignment with Anchor View
     case Align
 }
 
+/// Option Value to Decide Position on Parent
 public struct LayoutXMLRelativeAlignParent: OptionSetType {
     
     public let rawValue: Int
@@ -63,6 +68,7 @@ public struct LayoutXMLRelativeAlignParent: OptionSetType {
         self.rawValue = rawValue
     }
     
+    /// Get Option is Active or Not
     public func isActive(alignParent: LayoutXMLRelativeAlignParent) -> Bool {
         return self.rawValue & alignParent.rawValue == alignParent.rawValue
     }
@@ -147,6 +153,7 @@ public struct LayoutXMLDependency {
     }
 }
 
+/// Graph to Represent Dependencies
 public struct LayoutXMLDependencyGraph {
     
     public struct Node: CustomDebugStringConvertible {
@@ -361,7 +368,7 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
     
     public func measureSubviewsHorizontal() {
         
-        /// Return View With LayoutID
+        /// Return View with LayoutID
         func subview(layoutID layoutID: Int) -> UIView? {
             return self.subviews.filter { (subview: UIView) -> Bool in (subview.layoutID == layoutID && layoutID > 0) }.first
         }
