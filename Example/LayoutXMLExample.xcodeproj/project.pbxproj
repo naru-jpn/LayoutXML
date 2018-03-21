@@ -15,15 +15,15 @@
 		433E2B161CE01BF20090BAF1 /* absolute_layout.xml in Resources */ = {isa = PBXBuildFile; fileRef = 433E2B141CE01BF20090BAF1 /* absolute_layout.xml */; };
 		433E2B171CE01BF20090BAF1 /* sample.xml in Resources */ = {isa = PBXBuildFile; fileRef = 433E2B151CE01BF20090BAF1 /* sample.xml */; };
 		434B23B31D0B95BF00166731 /* relative_layout.xml in Resources */ = {isa = PBXBuildFile; fileRef = 434B23B21D0B95BF00166731 /* relative_layout.xml */; };
-		43B488BD1CDAE270003F1A55 /* LayoutXMLLayouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488B91CDAE270003F1A55 /* LayoutXMLLayouter.swift */; };
-		43B488BE1CDAE270003F1A55 /* LinearLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488BA1CDAE270003F1A55 /* LinearLayout.swift */; };
-		43B488BF1CDAE270003F1A55 /* RelativeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488BB1CDAE270003F1A55 /* RelativeLayout.swift */; };
 		43B488C81CDAE32F003F1A55 /* LayoutXMLInflater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488C51CDAE32F003F1A55 /* LayoutXMLInflater.swift */; };
 		43B488C91CDAE32F003F1A55 /* UIView+LayoutXMLInflater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488C61CDAE32F003F1A55 /* UIView+LayoutXMLInflater.swift */; };
-		43B488CB1CDAE7BC003F1A55 /* AbsoluteLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488CA1CDAE7BC003F1A55 /* AbsoluteLayout.swift */; };
 		43B488CE1CDB9D68003F1A55 /* R.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488CC1CDB9D68003F1A55 /* R.swift */; };
 		43BC50B61D08304F004D6E27 /* linear_layout.xml in Resources */ = {isa = PBXBuildFile; fileRef = 43BC50B51D08304F004D6E27 /* linear_layout.xml */; };
-		43E8B9811CD8B73B0063031A /* LayoutXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E8B97C1CD8B73B0063031A /* LayoutXML.swift */; };
+		43FEBABF205EA84400AFDFAC /* LayoutXMLLayouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488B91CDAE270003F1A55 /* LayoutXMLLayouter.swift */; };
+		43FEBAC0205EA8AB00AFDFAC /* AbsoluteLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488CA1CDAE7BC003F1A55 /* AbsoluteLayout.swift */; };
+		43FEBAC1205EA8DE00AFDFAC /* RelativeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488BB1CDAE270003F1A55 /* RelativeLayout.swift */; };
+		43FEBAC2205EA8E200AFDFAC /* LinearLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B488BA1CDAE270003F1A55 /* LinearLayout.swift */; };
+		43FEBACA205EAA5C00AFDFAC /* LayoutXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FEBAC9205EAA5C00AFDFAC /* LayoutXML.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,15 +37,15 @@
 		433E2B141CE01BF20090BAF1 /* absolute_layout.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = absolute_layout.xml; sourceTree = "<group>"; };
 		433E2B151CE01BF20090BAF1 /* sample.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sample.xml; sourceTree = "<group>"; };
 		434B23B21D0B95BF00166731 /* relative_layout.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = relative_layout.xml; sourceTree = "<group>"; };
-		43B488B91CDAE270003F1A55 /* LayoutXMLLayouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutXMLLayouter.swift; sourceTree = "<group>"; };
-		43B488BA1CDAE270003F1A55 /* LinearLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearLayout.swift; sourceTree = "<group>"; };
-		43B488BB1CDAE270003F1A55 /* RelativeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelativeLayout.swift; sourceTree = "<group>"; };
-		43B488C51CDAE32F003F1A55 /* LayoutXMLInflater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutXMLInflater.swift; path = ../LayoutXML/Inflater/LayoutXMLInflater.swift; sourceTree = "<group>"; };
-		43B488C61CDAE32F003F1A55 /* UIView+LayoutXMLInflater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+LayoutXMLInflater.swift"; path = "../LayoutXML/Inflater/UIView+LayoutXMLInflater.swift"; sourceTree = "<group>"; };
-		43B488CA1CDAE7BC003F1A55 /* AbsoluteLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbsoluteLayout.swift; sourceTree = "<group>"; };
-		43B488CC1CDB9D68003F1A55 /* R.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.swift; sourceTree = "<group>"; };
+		43B488B91CDAE270003F1A55 /* LayoutXMLLayouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutXMLLayouter.swift; path = ../LayoutXML/Layouter/LayoutXMLLayouter.swift; sourceTree = SOURCE_ROOT; };
+		43B488BA1CDAE270003F1A55 /* LinearLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinearLayout.swift; path = ../LayoutXML/Layouter/LinearLayout.swift; sourceTree = SOURCE_ROOT; };
+		43B488BB1CDAE270003F1A55 /* RelativeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RelativeLayout.swift; path = ../LayoutXML/Layouter/RelativeLayout.swift; sourceTree = SOURCE_ROOT; };
+		43B488C51CDAE32F003F1A55 /* LayoutXMLInflater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutXMLInflater.swift; path = ../LayoutXML/Inflater/LayoutXMLInflater.swift; sourceTree = SOURCE_ROOT; };
+		43B488C61CDAE32F003F1A55 /* UIView+LayoutXMLInflater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+LayoutXMLInflater.swift"; path = "../LayoutXML/Inflater/UIView+LayoutXMLInflater.swift"; sourceTree = SOURCE_ROOT; };
+		43B488CA1CDAE7BC003F1A55 /* AbsoluteLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbsoluteLayout.swift; path = ../LayoutXML/Layouter/AbsoluteLayout.swift; sourceTree = SOURCE_ROOT; };
+		43B488CC1CDB9D68003F1A55 /* R.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.swift; path = ../LayoutXML/R/R.swift; sourceTree = SOURCE_ROOT; };
 		43BC50B51D08304F004D6E27 /* linear_layout.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = linear_layout.xml; sourceTree = "<group>"; };
-		43E8B97C1CD8B73B0063031A /* LayoutXML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutXML.swift; sourceTree = "<group>"; };
+		43FEBAC9205EAA5C00AFDFAC /* LayoutXML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LayoutXML.swift; path = ../LayoutXML/LayoutXML.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,8 +118,7 @@
 				43B488C51CDAE32F003F1A55 /* LayoutXMLInflater.swift */,
 				43B488C61CDAE32F003F1A55 /* UIView+LayoutXMLInflater.swift */,
 			);
-			name = Inflater;
-			path = ../Inflater;
+			path = Inflater;
 			sourceTree = "<group>";
 		};
 		43B488CD1CDB9D68003F1A55 /* R */ = {
@@ -141,14 +140,14 @@
 		43E8B97B1CD8B73B0063031A /* LayoutXML */ = {
 			isa = PBXGroup;
 			children = (
-				43E8B97C1CD8B73B0063031A /* LayoutXML.swift */,
+				43FEBAC9205EAA5C00AFDFAC /* LayoutXML.swift */,
 				43B488CD1CDB9D68003F1A55 /* R */,
 				43B488BC1CDAE270003F1A55 /* Layouter */,
 				43B488C71CDAE32F003F1A55 /* Inflater */,
 			);
 			name = LayoutXML;
-			path = ../../../LayoutXML;
-			sourceTree = "<group>";
+			path = ../LayoutXML;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -177,7 +176,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = naru;
 				TargetAttributes = {
 					432DFD4E1CD85A91007404F0 = {
@@ -228,15 +227,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43B488BE1CDAE270003F1A55 /* LinearLayout.swift in Sources */,
-				43B488CB1CDAE7BC003F1A55 /* AbsoluteLayout.swift in Sources */,
+				43FEBACA205EAA5C00AFDFAC /* LayoutXML.swift in Sources */,
+				43FEBAC2205EA8E200AFDFAC /* LinearLayout.swift in Sources */,
+				43FEBAC1205EA8DE00AFDFAC /* RelativeLayout.swift in Sources */,
+				43FEBAC0205EA8AB00AFDFAC /* AbsoluteLayout.swift in Sources */,
 				43B488C91CDAE32F003F1A55 /* UIView+LayoutXMLInflater.swift in Sources */,
 				43B488C81CDAE32F003F1A55 /* LayoutXMLInflater.swift in Sources */,
-				43B488BD1CDAE270003F1A55 /* LayoutXMLLayouter.swift in Sources */,
 				432DFD551CD85A91007404F0 /* ViewController.swift in Sources */,
-				43B488BF1CDAE270003F1A55 /* RelativeLayout.swift in Sources */,
-				43E8B9811CD8B73B0063031A /* LayoutXML.swift in Sources */,
 				43B488CE1CDB9D68003F1A55 /* R.swift in Sources */,
+				43FEBABF205EA84400AFDFAC /* LayoutXMLLayouter.swift in Sources */,
 				432DFD531CD85A91007404F0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,13 +263,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -309,13 +316,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -334,6 +349,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -349,7 +365,7 @@
 				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jpn.naru.LayoutXMLExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -364,7 +380,7 @@
 				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jpn.naru.LayoutXMLExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

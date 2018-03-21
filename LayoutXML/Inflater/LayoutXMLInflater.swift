@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-final class LayoutXMLInflater: NSObject, NSXMLParserDelegate {
+final class LayoutXMLInflater: NSObject, XMLParserDelegate {
     
     internal class LayoutXMLElement: CustomStringConvertible {
     
@@ -36,34 +36,34 @@ final class LayoutXMLInflater: NSObject, NSXMLParserDelegate {
     private var objects: [LayoutXMLElement] = []
     private var current: LayoutXMLElement?
     
-    internal typealias LayoutXMLInflaterCompletion = (converter: LayoutXMLInflater, views: [UIView]) -> Void
+    internal typealias LayoutXMLInflaterCompletion = (_ converter: LayoutXMLInflater, _ views: [UIView]) -> Void
     var completion: LayoutXMLInflaterCompletion?
     
     /// Inflate layout xml.
     /// - parameter resource: layout xml file name
     /// - parameter completion: completion handler
-    internal func inflate(resource resource: String, completion: LayoutXMLInflaterCompletion?) {
+    internal func inflate(resource: String, completion: LayoutXMLInflaterCompletion?) {
         
-        let name: String = resource.hasSuffix(".xml") ? resource.stringByReplacingOccurrencesOfString(".xml", withString: "") : resource
-        guard let file: String = NSBundle.mainBundle().pathForResource(name, ofType: "xml") else {
+        let name: String = resource.hasSuffix(".xml") ? resource.replacingOccurrences(of: ".xml", with: "") : resource
+        guard let file: String = Bundle.main.path(forResource: name, ofType: "xml") else {
             return
         }
-        guard let data: NSData = NSData(contentsOfFile: file) else {
+        guard let data: Data = try? NSData(contentsOfFile: file) as Data else {
             return
         }
         
         self.completion = completion
         
-        dispatch_async(dispatch_get_main_queue(), {
-            let parser = NSXMLParser(data: data)
+        DispatchQueue.main.async {
+            let parser = XMLParser(data: data)
             parser.delegate = self
             parser.parse()
-        })
+        }
     }
     
     // MARK: xml parser delegate -
     
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         
         if LayoutXML.Constants.XMLDocument == elementName {
             return
@@ -83,23 +83,23 @@ final class LayoutXMLInflater: NSObject, NSXMLParserDelegate {
         current = element
     }
     
-    func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         
         current = current?.superElement
     }
     
-    func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
+    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         
     }
     
-    func parserDidEndDocument(parser: NSXMLParser) {
+    func parserDidEndDocument(_ parser: XMLParser) {
         
         if let completion = self.completion {
 
             let views = objects.flatMap { object in
                 return convertXMLElementToView(xmlElement: object)
             }
-            completion(converter: self, views: views)
+            completion(self, views)
         }
     }
     
@@ -109,7 +109,7 @@ final class LayoutXMLInflater: NSObject, NSXMLParserDelegate {
     /// Return nil if class represented by element name is not UIView or UIView inherited class.
     /// - parameter xmlElement: xml element to create view
     /// - returns: object of UIView or UIView inherited class
-    func convertXMLElementToView(xmlElement xmlElement: LayoutXMLInflater.LayoutXMLElement) -> UIView? {
+    func convertXMLElementToView(xmlElement: LayoutXMLInflater.LayoutXMLElement) -> UIView? {
         guard let _class = NSClassFromString(xmlElement.name) as? UIView.Type else {
             return nil
         }

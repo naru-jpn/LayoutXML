@@ -48,7 +48,7 @@ public class AbsoluteLayout: UIView, LayoutXMLLayouter {
             
             _size.width = others.map { (subview: UIView) -> CGFloat in
                 return subview._size.width + (subview.margin.left + subview.margin.right) + (padding.left + padding.right)
-            }.maxElement() ?? 0.0
+            }.max() ?? 0.0
             
             for subview in matchParents {
                 subview.measureWidth()
@@ -99,7 +99,7 @@ public class AbsoluteLayout: UIView, LayoutXMLLayouter {
             
             _size.height = others.map { (subview: UIView) -> CGFloat in
                 return subview._size.height + (subview.margin.top + subview.margin.bottom) + (padding.top + padding.bottom)
-            }.maxElement() ?? 0.0
+            }.max() ?? 0.0
             
             for subview in matchParents {
                 subview.measureHeight()
@@ -129,13 +129,13 @@ public class AbsoluteLayout: UIView, LayoutXMLLayouter {
             return
         }
         
-        self.frame = CGRectMake(_origin.x, _origin.y, _size.width, _size.height)
+        self.frame = CGRect(x: _origin.x, y: _origin.y, width: _size.width, height: _size.height)
         
         // set subview frames
         for subview in self.subviews {
             subview._origin.x = padding.left + subview.margin.left
             subview._origin.y = padding.top + subview.margin.top
-            subview.frame = CGRectMake(subview._origin.x, subview._origin.y, subview._size.width, subview._size.height)
+            subview.frame = CGRect(x: subview._origin.x, y: subview._origin.y, width: subview._size.width, height: subview._size.height)
             
             if let layouter = subview as? LayoutXMLLayouter {
                 layouter.layout()

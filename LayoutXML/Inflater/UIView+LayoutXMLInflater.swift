@@ -11,11 +11,11 @@ import Foundation
 
 extension UIView {
     
-    func loadLayoutXML(resource resource: String) {
+    func loadLayoutXML(resource: String) {
         self.loadLayoutXML(resource: resource, completion: nil)
     }
     
-    func loadLayoutXML(resource resource: String, completion: (() -> ())?) {
+    func loadLayoutXML(resource: String, completion: (() -> ())?) {
         
         self._size = self.frame.size
         
@@ -38,7 +38,7 @@ extension UIView {
     /// Create view from XMLElement.
     /// - parameter layoutXMLElement: layout xml element to create view
     /// - returns: created object
-    class func view(layoutXMLElement layoutXMLElement: LayoutXMLInflater.LayoutXMLElement) -> Self {
+    class func view(layoutXMLElement: LayoutXMLInflater.LayoutXMLElement) -> Self {
         
         let view = self.init()
         let attributes: [String: String] = layoutXMLElement.attributes
@@ -78,15 +78,15 @@ extension UIView {
         
         // background color
         if let value = attributes[LayoutXML.Constants.BackgroundColor] {
-            if let color: UIColor = LayoutXML.R.color(string: value) {
+            if let color: UIColor = LayoutXML.R.color(value) {
                 view.backgroundColor = color
             }
         }
         
         // weight
         if let value = attributes[LayoutXML.Constants.LinearLayout.Weight] {
-            if let double: Double = Double(value), let weight: CGFloat = CGFloat(double) {
-                view.weight = weight
+            if let double: Double = Double(value) {
+                view.weight = CGFloat(double)
             }
         }
         
@@ -108,49 +108,49 @@ extension UIView {
         // dependency (align)
         if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.Top] {
             if let layoutID: Int = LayoutXML.R.id(string) {
-                view.dependency.anchors.top = LayoutXMLRelativeAnchor(type: .Align, layoutID: layoutID)
+                view.dependency.anchors.top = LayoutXMLRelativeAnchor(type: .align, layoutID: layoutID)
             }
         }
         if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.Left] {
             if let layoutID: Int = LayoutXML.R.id(string) {
-                view.dependency.anchors.left = LayoutXMLRelativeAnchor(type: .Align, layoutID: layoutID)
+                view.dependency.anchors.left = LayoutXMLRelativeAnchor(type: .align, layoutID: layoutID)
             }
         }
         if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.Bottom] {
             if let layoutID: Int = LayoutXML.R.id(string) {
-                view.dependency.anchors.bottom = LayoutXMLRelativeAnchor(type: .Align, layoutID: layoutID)
+                view.dependency.anchors.bottom = LayoutXMLRelativeAnchor(type: .align, layoutID: layoutID)
             }
         }
         if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.Right] {
             if let layoutID: Int = LayoutXML.R.id(string) {
-                view.dependency.anchors.right = LayoutXMLRelativeAnchor(type: .Align, layoutID: layoutID)
+                view.dependency.anchors.right = LayoutXMLRelativeAnchor(type: .align, layoutID: layoutID)
             }
         }
         
         // dependency (position)
         if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.Top] {
             if let layoutID: Int = LayoutXML.R.id(string) {
-                view.dependency.anchors.top = LayoutXMLRelativeAnchor(type: .Position, layoutID: layoutID)
+                view.dependency.anchors.top = LayoutXMLRelativeAnchor(type: .position, layoutID: layoutID)
             }
         }
         if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.Right] {
             if let layoutID: Int = LayoutXML.R.id(string) {
-                view.dependency.anchors.left = LayoutXMLRelativeAnchor(type: .Position, layoutID: layoutID)
+                view.dependency.anchors.left = LayoutXMLRelativeAnchor(type: .position, layoutID: layoutID)
             }
         }
         if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.Bottom] {
             if let layoutID: Int = LayoutXML.R.id(string) {
-                view.dependency.anchors.bottom = LayoutXMLRelativeAnchor(type: .Position, layoutID: layoutID)
+                view.dependency.anchors.bottom = LayoutXMLRelativeAnchor(type: .position, layoutID: layoutID)
             }
         }
         if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.Left] {
             if let layoutID: Int = LayoutXML.R.id(string) {
-                view.dependency.anchors.right = LayoutXMLRelativeAnchor(type: .Position, layoutID: layoutID)
+                view.dependency.anchors.right = LayoutXMLRelativeAnchor(type: .position, layoutID: layoutID)
             }
         }
         
         // for linear layout
-        if let linearLayout = view as! AnyObject as? LinearLayout {
+        if let linearLayout = view as AnyObject as? LinearLayout {
             
             // orientation
             if let value = attributes[LayoutXML.Constants.LinearLayout.Orientation] {
@@ -164,7 +164,7 @@ extension UIView {
         }
         
         // for label
-        if let label = view as! AnyObject as? UILabel {
+        if let label = view as AnyObject as? UILabel {
             
             // font
             if let value = attributes[LayoutXML.Constants.Font] {
@@ -185,7 +185,7 @@ extension UIView {
         }
         
         // for button
-        if let button = view as! AnyObject as? UIButton {
+        if let button = view as AnyObject as? UIButton {
             
             // font
             if let value = attributes[LayoutXML.Constants.Font] {
@@ -196,7 +196,7 @@ extension UIView {
             
             // text
             if let value = attributes[LayoutXML.Constants.Text] {
-                button.setTitle(LayoutXML.R.string(value), forState: .Normal)
+                button.setTitle(LayoutXML.R.string(value), for: .normal)
             }
         }
         

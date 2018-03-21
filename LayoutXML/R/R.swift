@@ -15,32 +15,32 @@ extension LayoutXML {
     class R {
         
         /// Return layout id from identifier
-        class func id(string: String) -> Int? {
+        static func id(_ string: String) -> Int? {
             return LayoutIDStore.id(string: string)
         }
         
         /// Return localized string or plane text.
         /// - parameter string: string to get text
         /// - returns: localized string or plane text
-        class func string(string: String) -> String {
+        static func string(_ string: String) -> String {
             if string.hasPrefix("@string/") {
-                return NSLocalizedString(string.stringByReplacingOccurrencesOfString("@string/", withString: ""), comment: "")
+                return NSLocalizedString(string.replacingOccurrences(of: "@string/", with: ""), comment: "")
             } else {
-                return string.stringByReplacingOccurrencesOfString("\\n", withString: "\n")
+                return string.replacingOccurrences(of: "\\n", with: "\n")
             }
         }
         
         /// Return font.
         /// - parameter string: string to get font: 'font-name:font_size'
         /// - returns: font
-        class func font(string: String) -> UIFont? {
-            let components: [String] = string.componentsSeparatedByString(":")
+        static func font(_ string: String) -> UIFont? {
+            let components: [String] = string.components(separatedBy: ":")
             if components.count == 2 {
                 let name: String = components[0]
                 let size: CGFloat = {
                     var float: Float = 0.0
-                    let scanner = NSScanner(string: components[1])
-                    scanner.charactersToBeSkipped = NSCharacterSet.lowercaseLetterCharacterSet()
+                    let scanner = Scanner(string: components[1])
+                    scanner.charactersToBeSkipped = NSCharacterSet.lowercaseLetters
                     scanner.scanFloat(&float)
                     return CGFloat(float)
                 }()
@@ -50,25 +50,25 @@ extension LayoutXML {
             }
         }
         
-        class func color(string string: String) -> UIColor? {
+        static func color(_ string: String) -> UIColor? {
             
-            func color(code code: String) -> UIColor? {
+            func color(code: String) -> UIColor? {
                 
                 /// Get complete color code.
                 /// - parameter code: color code
                 /// - returns: complete color code
-                func completeCode(code code: String) -> String {
+                func completeCode(code: String) -> String {
                     
-                    let length: Int = code.characters.count
+                    let length: Int = code.count
                     switch length {
                     case 6:
-                        return "FF".stringByAppendingString(code)
+                        return "FF".appending(code)
                     case 4:
-                        return code.characters.reduce("") {
+                        return code.reduce("") {
                             "\($0)" + "\($1)\($1)"
                         }
                     case 3:
-                        return "FF".stringByAppendingString(code.characters.reduce("") {
+                        return "FF".appending(code.reduce("") {
                             "\($0)" + "\($1)\($1)"
                             })
                     default:
@@ -77,7 +77,7 @@ extension LayoutXML {
                 }
                 
                 var value: UInt32 = 0
-                NSScanner(string: completeCode(code: code)).scanHexInt(&value)
+                Scanner(string: completeCode(code: code)).scanHexInt32(&value)
                 let alpha: CGFloat = CGFloat(((value & (0xFF << 24)) >> 24))/255.0
                 let red  : CGFloat = CGFloat(((value & (0xFF << 16)) >> 16))/255.0
                 let green: CGFloat = CGFloat(((value & (0xFF <<  8)) >>  8))/255.0
@@ -87,12 +87,12 @@ extension LayoutXML {
             
             // @code
             if string.hasPrefix("@code/") {
-                let code: String = string.stringByReplacingOccurrencesOfString("@code/", withString: "")
+                let code: String = string.replacingOccurrences(of: "@code/", with: "")
                 return color(code: code)
             }
             // @color
             if string.hasPrefix("@color/") {
-                let name: String = string.stringByReplacingOccurrencesOfString("@color/", withString: "")
+                let name: String = string.replacingOccurrences(of: "@color/", with: "")
                 guard let code = ColorStore.store.dictionary?[name] else {
                     return nil
                 }
@@ -120,11 +120,11 @@ extension LayoutXML {
                 return Static.instance
             }
             
-            class func id(string string: String) -> Int? {
+            class func id(string: String) -> Int? {
                 
                 if string.hasPrefix("@+id/") {
                     
-                    let name: String = string.stringByReplacingOccurrencesOfString("@+id/", withString: "")
+                    let name: String = string.replacingOccurrences(of: "@+id/", with: "")
                     
                     if let id: Int = store.dictionary[name] {
                         return id
@@ -137,7 +137,7 @@ extension LayoutXML {
                 }
                 else if string.hasPrefix("@id/") {
                     
-                    let name: String = string.stringByReplacingOccurrencesOfString("@id/", withString: "")
+                    let name: String = string.replacingOccurrences(of: "@id/", with: "")
                     
                     return store.dictionary[name]
                 }
@@ -163,10 +163,10 @@ extension LayoutXML {
             /// Return color code from key string.
             /// - parameter key: key string to get color code
             /// - return: color code
-            class func code(key key: String) -> String? {
+            class func code(key: String) -> String? {
                 if nil == store.dictionary {
-                    if let path = NSBundle.mainBundle().pathForResource(LayoutXML.Constants.ColorPlist, ofType: "plist") {
-                        if NSFileManager.defaultManager().fileExistsAtPath(path) {
+                    if let path = Bundle.main.path(forResource: LayoutXML.Constants.ColorPlist, ofType: "plist") {
+                        if FileManager.default.fileExists(atPath: path) {
                             store.dictionary = {
                                 guard let dictionary: NSDictionary = NSDictionary(contentsOfFile: path) else {
                                     return nil

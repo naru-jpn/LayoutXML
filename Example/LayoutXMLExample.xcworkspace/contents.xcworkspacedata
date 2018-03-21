@@ -1,47 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
-   <Group
-      location = "group:../LayoutXML"
-      name = "LayoutXML">
-      <FileRef
-         location = "group:LayoutXML.swift">
-      </FileRef>
-      <Group
-         location = "group:R"
-         name = "R">
-         <FileRef
-            location = "group:R.swift">
-         </FileRef>
-      </Group>
-      <Group
-         location = "group:Layouter"
-         name = "Layouter">
-         <FileRef
-            location = "group:/Users/naru/naru-jpn/LayoutXML/LayoutXML/Layouter/LayoutXMLLayouter.swift">
-         </FileRef>
-         <FileRef
-            location = "group:LinearLayout.swift">
-         </FileRef>
-         <FileRef
-            location = "group:RelativeLayout.swift">
-         </FileRef>
-         <FileRef
-            location = "group:AbsoluteLayout.swift">
-         </FileRef>
-      </Group>
-      <Group
-         location = "group:../Inflater"
-         name = "Inflater">
-         <FileRef
-            location = "group:../LayoutXML/Inflater/LayoutXMLInflater.swift">
-         </FileRef>
-         <FileRef
-            location = "group:../LayoutXML/Inflater/UIView+LayoutXMLInflater.swift">
-         </FileRef>
-      </Group>
-   </Group>
    <FileRef
-      location = "container:LayoutXMLExample.xcodeproj">
+      location = "absolute:LayoutXMLExample.xcodeproj">
    </FileRef>
 </Workspace>

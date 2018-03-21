@@ -12,15 +12,15 @@ import Foundation
 /// Anchor Type
 public enum LayoutXMLRelativeAnchorType: Int {
     /// No Anchor
-    case None = 0
+    case none = 0
     /// Adjust Position with Anchor View
-    case Position
+    case position
     /// Adjust Alignment with Anchor View
-    case Align
+    case align
 }
 
 /// Option Value to Decide Position on Parent
-public struct LayoutXMLRelativeAlignParent: OptionSetType {
+public struct LayoutXMLRelativeAlignParent: OptionSet {
     
     public let rawValue: Int
     public init(rawValue: Int) { self.rawValue = rawValue }
@@ -59,11 +59,11 @@ public struct LayoutXMLRelativeAlignParent: OptionSetType {
             }
         }
         
-        let rawValue: Int = string.componentsSeparatedByString("|").filter { (component: String) -> Bool in
-            component.characters.count > 0
+        let rawValue: Int = string.components(separatedBy: "|").filter { (component: String) -> Bool in
+            component.count > 0
         }.map { (component: String) -> Int in
-            return alignParent(component).rawValue
-        }.reduce(LayoutXMLGravity.Default.rawValue, combine: |)
+            return alignParent(component: component).rawValue
+        }.reduce(LayoutXMLGravity.default.rawValue, |)
         
         self.rawValue = rawValue
     }
@@ -110,17 +110,21 @@ public struct LayoutXMLRelativeAnchors {
     }
     
     init(values: [[Int]]) {
-        if let type: Int = values[0][0], let layoutID: Int = values[0][1] where layoutID > 0 {
-            self.top = LayoutXMLRelativeAnchor(type: LayoutXMLRelativeAnchorType(rawValue: type)!, layoutID: layoutID)
+        let layoutIDTop: Int = values[0][1]
+        if layoutIDTop > 0 {
+            self.top = LayoutXMLRelativeAnchor(type: LayoutXMLRelativeAnchorType(rawValue: values[0][0])!, layoutID: layoutIDTop)
         }
-        if let type: Int = values[1][0], let layoutID: Int = values[1][1] where layoutID > 0 {
-            self.left = LayoutXMLRelativeAnchor(type: LayoutXMLRelativeAnchorType(rawValue: type)!, layoutID: layoutID)
+        let layoutIDLeft: Int = values[1][1]
+        if layoutIDLeft > 0 {
+            self.left = LayoutXMLRelativeAnchor(type: LayoutXMLRelativeAnchorType(rawValue: values[1][0])!, layoutID: layoutIDLeft)
         }
-        if let type: Int = values[2][0], let layoutID: Int = values[2][1] where layoutID > 0 {
-            self.bottom = LayoutXMLRelativeAnchor(type: LayoutXMLRelativeAnchorType(rawValue: type)!, layoutID: layoutID)
+        let layoutIDBottom: Int = values[2][1]
+        if layoutIDBottom > 0 {
+            self.bottom = LayoutXMLRelativeAnchor(type: LayoutXMLRelativeAnchorType(rawValue: values[2][0])!, layoutID: layoutIDBottom)
         }
-        if let type: Int = values[3][0], let layoutID: Int = values[3][1] where layoutID > 0 {
-            self.right = LayoutXMLRelativeAnchor(type: LayoutXMLRelativeAnchorType(rawValue: type)!, layoutID: layoutID)
+        let layoutIDRight: Int = values[3][1]
+        if layoutIDRight > 0 {
+            self.right = LayoutXMLRelativeAnchor(type: LayoutXMLRelativeAnchorType(rawValue: values[3][0])!, layoutID: layoutIDRight)
         }
     }
 }
@@ -169,7 +173,7 @@ public struct LayoutXMLDependencyGraph {
         }
         
         public var debugDescription: String {
-            return "<view: \(self.view.dynamicType), dependencies(count): \(self.dependencies.count), dependents(count): \(dependents.count)>"
+            return "<view: \(type(of: self.view)), dependencies(count): \(self.dependencies.count), dependents(count): \(dependents.count)>"
         }
     }
     
@@ -187,20 +191,20 @@ public struct LayoutXMLDependencyGraph {
     
     var horizontalRoots: [Node] {
         
-        func roots(nodes: [Node]) -> [Node] {
+        func roots(_ nodes: [Node]) -> [Node] {
             return nodes.filter { (node: Node) -> Bool in
-                return (node.view.dependency.anchors.left?.type == .None) && (node.view.dependency.anchors.right?.type == .None)
+                return (node.view.dependency.anchors.left?.type == .none) && (node.view.dependency.anchors.right?.type == .none)
             }
         }
         
         var nodes: [Node] = self.nodes
         
-        for (index, node) in nodes.enumerate() {
+        for (index, node) in nodes.enumerated() {
             
             let anchors: LayoutXMLRelativeAnchors = node.view.dependency.anchors
             
-            if anchors.left?.type != .None {
-                let anchorIndex: Int? = self.nodes.enumerate().flatMap { (index: Int, node: Node) -> Int? in
+            if anchors.left?.type != .none {
+                let anchorIndex: Int? = self.nodes.enumerated().flatMap { (index: Int, node: Node) -> Int? in
                     return (node.view.layoutID == anchors.left?.layoutID) ? index : nil
                 }.first
                 if let anchorIndex: Int = anchorIndex {
@@ -208,8 +212,8 @@ public struct LayoutXMLDependencyGraph {
                     nodes[anchorIndex].dependents.append(nodes[index])
                 }
             }
-            if anchors.right?.type != .None {
-                let anchorIndex: Int? = self.nodes.enumerate().flatMap { (index: Int, node: Node) -> Int? in
+            if anchors.right?.type != .none {
+                let anchorIndex: Int? = self.nodes.enumerated().flatMap { (index: Int, node: Node) -> Int? in
                     return (node.view.layoutID == anchors.right?.layoutID) ? index : nil
                 }.first
                 if let anchorIndex: Int = anchorIndex {
@@ -224,20 +228,20 @@ public struct LayoutXMLDependencyGraph {
     
     var verticalRoots: [Node] {
         
-        func roots(nodes: [Node]) -> [Node] {
+        func roots(of nodes: [Node]) -> [Node] {
             return nodes.filter { (node: Node) -> Bool in
-                return (node.view.dependency.anchors.top?.type == .None) && (node.view.dependency.anchors.bottom?.type == .None)
+                return (node.view.dependency.anchors.top?.type == .none) && (node.view.dependency.anchors.bottom?.type == .none)
             }
         }
         
         var nodes: [Node] = self.nodes
         
-        for (index, node) in nodes.enumerate() {
+        for (index, node) in nodes.enumerated() {
             
             let anchors: LayoutXMLRelativeAnchors = node.view.dependency.anchors
             
-            if anchors.top?.type != .None {
-                let anchorIndex: Int? = self.nodes.enumerate().flatMap { (index: Int, node: Node) -> Int? in
+            if anchors.top?.type != .none {
+                let anchorIndex: Int? = self.nodes.enumerated().flatMap { (index: Int, node: Node) -> Int? in
                     return (node.view.layoutID == anchors.top?.layoutID) ? index : nil
                 }.first
                 if let anchorIndex: Int = anchorIndex {
@@ -245,8 +249,8 @@ public struct LayoutXMLDependencyGraph {
                     nodes[anchorIndex].dependents.append(nodes[index])
                 }
             }
-            if anchors.bottom?.type != .None {
-                let anchorIndex: Int? = self.nodes.enumerate().flatMap { (index: Int, node: Node) -> Int? in
+            if anchors.bottom?.type != .none {
+                let anchorIndex: Int? = self.nodes.enumerated().flatMap { (index: Int, node: Node) -> Int? in
                     return (node.view.layoutID == anchors.bottom?.layoutID) ? index : nil
                 }.first
                 if let anchorIndex: Int = anchorIndex {
@@ -256,12 +260,11 @@ public struct LayoutXMLDependencyGraph {
             }
         }
         
-        return roots(nodes)
+        return roots(of: nodes)
     }
 }
 
 @objc (RelativeLayout)
-
 public class RelativeLayout: UIView, LayoutXMLLayouter {
     
     override public func measureWidth() {
@@ -299,7 +302,7 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
             
             _size.width = others.map { (subview: UIView) -> CGFloat in
                 return subview._size.width + (subview.margin.left + subview.margin.right) + (padding.left + padding.right)
-            }.maxElement() ?? 0.0
+            }.max() ?? 0.0
             
             for subview in matchParents {
                 subview.measureWidth()
@@ -350,7 +353,7 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
             
             self._size.height = others.map { (subview: UIView) -> CGFloat in
                 return subview._size.height + (subview.margin.top + subview.margin.bottom) + (padding.top + padding.bottom)
-            }.maxElement() ?? 0.0
+            }.max() ?? 0.0
             
             for subview in matchParents {
                 subview.measureHeight()
@@ -369,12 +372,12 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
     public func measureSubviewsHorizontal() {
         
         /// Return View with LayoutID
-        func subview(layoutID layoutID: Int) -> UIView? {
+        func subview(layoutID: Int) -> UIView? {
             return self.subviews.filter { (subview: UIView) -> Bool in (subview.layoutID == layoutID && layoutID > 0) }.first
         }
         
         /// Adjust Dependent Nodes Recursively
-        func adjustDependentNodes(nodes: [LayoutXMLDependencyGraph.Node]) {
+        func adjustDependentNodes(_ nodes: [LayoutXMLDependencyGraph.Node]) {
             
             for node in nodes {
                 
@@ -388,14 +391,14 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
                 // Left Anchor
                 if let leftAnchor: LayoutXMLRelativeAnchor = node.view.dependency.anchors.left, let view = subview(layoutID: leftAnchor.layoutID) {
                     
-                    if leftAnchor.type == .Align {
+                    if leftAnchor.type == .align {
                         node.view._origin.x = view._origin.x + node.view.margin.left
                     } else {
                         node.view._origin.x = view._origin.x + view._size.width + view.margin.right + node.view.margin.left
                     }
                     isLeftFixed = true
                     
-                } else if alignParent.isActive(.CenterHorizontal) {
+                } else if alignParent.isActive(alignParent: .CenterHorizontal) {
                     
                     node.view._origin.x = (self._size.width - node.view._size.width)/2.0
                     isLeftFixed = true
@@ -411,13 +414,13 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
                 // Right Anchor
                 if let rightAnchor: LayoutXMLRelativeAnchor = node.view.dependency.anchors.right, let view = subview(layoutID: rightAnchor.layoutID) {
                     
-                    if rightAnchor.type == .Align {
+                    if rightAnchor.type == .align {
                         node.view._origin.x = view._origin.x + view._size.width - (node.view._size.width + node.view.margin.right)
                     } else {
                         node.view._origin.x = view._origin.x - (node.view._size.width + node.view.margin.right + view.margin.left)
                     }
 
-                } else if alignParent.isActive(.Right) {
+                } else if alignParent.isActive(alignParent: .Right) {
                     
                     node.view._origin.x = self._size.width - (node.view._size.width + node.view.margin.right + self.padding.right)
                 }
@@ -443,12 +446,12 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
     public func measureSubviewsVertical() {
         
         /// Return View With LayoutID
-        func subview(layoutID layoutID: Int) -> UIView? {
+        func subview(layoutID: Int) -> UIView? {
             return self.subviews.filter { (subview: UIView) -> Bool in (subview.layoutID == layoutID && layoutID > 0) }.first
         }
         
         /// Adjust Dependent Nodes Recursively
-        func adjustDependentNodes(nodes: [LayoutXMLDependencyGraph.Node]) {
+        func adjustDependentNodes(_ nodes: [LayoutXMLDependencyGraph.Node]) {
             
             for node in nodes {
                 
@@ -462,14 +465,14 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
                 // Top Anchor
                 if let topAnchor: LayoutXMLRelativeAnchor = node.view.dependency.anchors.top, let view = subview(layoutID: topAnchor.layoutID) {
                     
-                    if topAnchor.type == .Align {
+                    if topAnchor.type == .align {
                         node.view._origin.y = view._origin.y + node.view.margin.top
                     } else {
                         node.view._origin.y = view._origin.y + view._size.height + view.margin.top + node.view.margin.bottom
                     }
                     isTopFixed = true
                     
-                } else if alignParent.isActive(.CenterVertical) {
+                } else if alignParent.isActive(alignParent: .CenterVertical) {
                     
                     node.view._origin.y = (self._size.height - node.view._size.height)/2.0
                     isTopFixed = true
@@ -485,13 +488,13 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
                 // Bottom Anchor
                 if let bottomAnchor: LayoutXMLRelativeAnchor = node.view.dependency.anchors.bottom, let view = subview(layoutID: bottomAnchor.layoutID) {
                     
-                    if bottomAnchor.type == .Align {
+                    if bottomAnchor.type == .align {
                         node.view._origin.y = view._origin.y + view._size.height - (node.view._size.height + node.view.margin.bottom)
                     } else {
                         node.view._origin.y = view._origin.y - (node.view._size.height + node.view.margin.bottom + view.margin.top)
                     }
                     
-                } else if alignParent.isActive(.Bottom) {
+                } else if alignParent.isActive(alignParent: .Bottom) {
                     
                     node.view._origin.y = self._size.height - (node.view._size.height + node.view.margin.bottom + self.padding.bottom)
                 }
@@ -520,12 +523,12 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
             return
         }
         
-        self.frame = CGRectMake(self.margin.left, self.margin.top, _size.width, _size.height)
+        self.frame = CGRect(x: self.margin.left, y: self.margin.top, width: _size.width, height: _size.height)
         
         // set subview frames
         for subview in self.subviews {
             
-            subview.frame = CGRectMake(subview._origin.x, subview._origin.y, subview._size.width, subview._size.height)
+            subview.frame = CGRect(x: subview._origin.x, y: subview._origin.y, width: subview._size.width, height: subview._size.height)
             
             if let layouter = subview as? LayoutXMLLayouter {
                 layouter.layout()
