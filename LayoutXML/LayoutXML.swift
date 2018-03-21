@@ -143,9 +143,9 @@ public extension LayoutXMLLength {
 /// Return LayoutXMLLength from string.
 /// - parameter string: string to convert
 /// - returns: layout xml length value
-public func layoutXMLLength(string string: String?) -> LayoutXMLLength {
+public func layoutXMLLength(string: String?) -> LayoutXMLLength {
     
-    guard let string = string?.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "") else {
+    guard let string = string?.lowercased().replacingOccurrences(of: " ", with: "") else {
         return LayoutXMLLength.Zero
     }
     
@@ -157,8 +157,8 @@ public func layoutXMLLength(string string: String?) -> LayoutXMLLength {
     }
     else {
         var float: Float = 0.0
-        let scanner = NSScanner(string: string)
-        scanner.charactersToBeSkipped = NSCharacterSet.lowercaseLetterCharacterSet()
+        let scanner = Scanner(string: string)
+        scanner.charactersToBeSkipped = NSCharacterSet.lowercaseLetters
         scanner.scanFloat(&float)
         return CGFloat(float)
     }
@@ -186,7 +186,7 @@ public extension LayoutXMLSize {
 /// - parameter width: string to convert
 /// - parameter height: string to convert
 /// - returns: layout xml size value
-public func layoutXMLSize(width width: String?, height: String?) -> LayoutXMLSize {
+public func layoutXMLSize(width: String?, height: String?) -> LayoutXMLSize {
     return LayoutXMLSize(width: layoutXMLLength(string: width), height: layoutXMLLength(string: height))
 }
 
@@ -195,7 +195,7 @@ public func layoutXMLSize(width width: String?, height: String?) -> LayoutXMLSiz
 public typealias LayoutXMLEdgeInsets = UIEdgeInsets
 
 public extension LayoutXMLEdgeInsets {
-    public static let Zero = UIEdgeInsetsZero
+    public static let Zero = UIEdgeInsets.zero
 }
 
 /// Return layoutXMLEdgeInsets from strings.
@@ -204,20 +204,20 @@ public extension LayoutXMLEdgeInsets {
 /// - parameter bottom: bottom inset
 /// - parameter left: left inset
 /// - return: layout xml edge insets
-public func layoutXMLEdgeInsets(top top: String?, right: String?, bottom: String?, left: String?) -> LayoutXMLEdgeInsets {
+public func layoutXMLEdgeInsets(top: String?, right: String?, bottom: String?, left: String?) -> LayoutXMLEdgeInsets {
     return LayoutXMLEdgeInsets(top: layoutXMLLength(string: top), left: layoutXMLLength(string: left), bottom: layoutXMLLength(string: bottom), right: layoutXMLLength(string: right))
 }
 
 /// Return layoutXMLEdgeInsets from string.
 /// - parameter string: string to create insets
 /// - return: layout xml edge insets
-public func layoutXMLEdgeInsets(string string: String?) -> LayoutXMLEdgeInsets {
+public func layoutXMLEdgeInsets(string: String?) -> LayoutXMLEdgeInsets {
     
     guard let string = string else {
         return LayoutXMLEdgeInsets.Zero
     }
     
-    let components = string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).componentsSeparatedByString(" ")
+    let components = string.trimmingCharacters(in: CharacterSet.whitespaces).components(separatedBy: [" "])
     switch components.count {
     case 1:
         return layoutXMLEdgeInsets(top: components[0], right: components[0], bottom: components[0], left: components[0])
@@ -311,11 +311,11 @@ extension UIView: LayoutXMLLayoutable {
     
     /// Getter / Setter
     
-    private func get(pointer: UnsafePointer<Void>) -> AnyObject? {
-        return objc_getAssociatedObject(self, pointer)
+    private func get(_ pointer: UnsafeRawPointer) -> AnyObject? {
+        return objc_getAssociatedObject(self, pointer) as AnyObject
     }
     
-    private func set(pointer: UnsafePointer<Void>, object: AnyObject) {
+    private func set(_ pointer: UnsafeRawPointer, object: AnyObject) {
         objc_setAssociatedObject(self, pointer, object, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
     }
 
@@ -325,10 +325,10 @@ extension UIView: LayoutXMLLayoutable {
             guard let number = get(&AssociateKeys.layoutID) as? NSNumber else {
                 return 0
             }
-            return number.integerValue
+            return number.intValue
         }
         set {
-            let number: NSNumber = NSNumber(integer: newValue)
+            let number: NSNumber = NSNumber(value: newValue)
             set(&AssociateKeys.layoutID, object: number)
         }
     }
@@ -337,12 +337,12 @@ extension UIView: LayoutXMLLayoutable {
     public var _size: CGSize {
         get {
             guard let value = get(&AssociateKeys._size) as? NSValue else {
-                return CGSizeZero
+                return CGSize.zero
             }
-            return value.CGSizeValue()
+            return value.cgSizeValue
         }
         set {
-            let value: NSValue = NSValue(CGSize: newValue)
+            let value: NSValue = NSValue(cgSize: newValue)
             set(&AssociateKeys._size, object: value)
         }
     }
@@ -351,12 +351,12 @@ extension UIView: LayoutXMLLayoutable {
     public var _origin: CGPoint {
         get {
             guard let value = get(&AssociateKeys._origin) as? NSValue else {
-                return CGPointZero
+                return CGPoint.zero
             }
-            return value.CGPointValue()
+            return value.cgPointValue
         }
         set {
-            let value: NSValue = NSValue(CGPoint: newValue)
+            let value: NSValue = NSValue(cgPoint: newValue)
             set(&AssociateKeys._origin, object: value)
         }
     }
@@ -367,10 +367,10 @@ extension UIView: LayoutXMLLayoutable {
             guard let value = get(&AssociateKeys.margin) as? NSValue else {
                 return LayoutXMLEdgeInsets.Zero
             }
-            return value.UIEdgeInsetsValue()
+            return value.uiEdgeInsetsValue
         }
         set {
-            let value: NSValue = NSValue(UIEdgeInsets: newValue)
+            let value: NSValue = NSValue(uiEdgeInsets: newValue)
             set(&AssociateKeys.margin, object: value)
         }
     }
@@ -379,12 +379,12 @@ extension UIView: LayoutXMLLayoutable {
     public var padding: LayoutXMLEdgeInsets {
         get {
             guard let value = get(&AssociateKeys.padding) as? NSValue else {
-                return UIEdgeInsetsZero
+                return UIEdgeInsets.zero
             }
-            return value.UIEdgeInsetsValue()
+            return value.uiEdgeInsetsValue
         }
         set {
-            let value: NSValue = NSValue(UIEdgeInsets: newValue)
+            let value: NSValue = NSValue(uiEdgeInsets: newValue)
             set(&AssociateKeys.padding, object: value)
         }
     }
@@ -395,10 +395,10 @@ extension UIView: LayoutXMLLayoutable {
             guard let value = get(&AssociateKeys.sizeInfo) as? NSValue else {
                 return LayoutXMLSize.Zero
             }
-            return value.CGSizeValue().LayoutXMLSizeValue()
+            return value.cgSizeValue.LayoutXMLSizeValue()
         }
         set {
-            let value = NSValue(CGSize: newValue.CGSizeValue())
+            let value = NSValue(cgSize: newValue.CGSizeValue())
             set(&AssociateKeys.sizeInfo, object: value)
         }
     }
@@ -406,13 +406,13 @@ extension UIView: LayoutXMLLayoutable {
     /// visibility
     public var visibility: LayoutXMLVisibility {
         get {
-            guard let number = get(&AssociateKeys.visibility) as? NSNumber, let visibility = LayoutXMLVisibility(rawValue: number.integerValue) else {
+            guard let number = get(&AssociateKeys.visibility) as? NSNumber, let visibility = LayoutXMLVisibility(rawValue: number.intValue) else {
                 return LayoutXMLVisibility.Visible
             }
             return visibility
         }
         set {
-            let number: NSNumber = NSNumber(integer: newValue.rawValue)
+            let number: NSNumber = NSNumber(value: newValue.rawValue)
             set(&AssociateKeys.visibility, object: number)
         }
     }
@@ -420,13 +420,14 @@ extension UIView: LayoutXMLLayoutable {
     /// weight
     public var weight: CGFloat {
         get {
-            guard let number: NSNumber = get(&AssociateKeys.weight) as? NSNumber, let weight: Float = number.floatValue else {
+            guard let number: NSNumber = get(&AssociateKeys.weight) as? NSNumber else {
                 return 0.0
             }
+            let weight: Float = number.floatValue
             return CGFloat(weight)
         }
         set {
-            let number: NSNumber = NSNumber(float: Float(newValue))
+            let number: NSNumber = NSNumber(value: Float(newValue))
             set(&AssociateKeys.weight, object: number)
         }
     }
@@ -434,13 +435,14 @@ extension UIView: LayoutXMLLayoutable {
     /// gravity
     public var gravity: LayoutXMLGravity {
         get {
-            guard let number: NSNumber = get(&AssociateKeys.gravity) as? NSNumber, let rawValue: Int = number.integerValue else {
-                return LayoutXMLGravity.Default
+            guard let number: NSNumber = get(&AssociateKeys.gravity) as? NSNumber else {
+                return .default
             }
+            let rawValue: Int = number.intValue
             return LayoutXMLGravity(rawValue: rawValue)
         }
         set {
-            let number: NSNumber = NSNumber(integer: newValue.rawValue)
+            let number: NSNumber = NSNumber(value: newValue.rawValue)
             set(&AssociateKeys.gravity, object: number)
         }
     }
@@ -448,13 +450,14 @@ extension UIView: LayoutXMLLayoutable {
     /// layout gravity
     public var layoutGravity: LayoutXMLGravity {
         get {
-            guard let number: NSNumber = get(&AssociateKeys.layoutGravity) as? NSNumber, let rawValue: Int = number.integerValue else {
-                return LayoutXMLGravity.Default
+            guard let number: NSNumber = get(&AssociateKeys.layoutGravity) as? NSNumber else {
+                return .default
             }
+            let rawValue: Int = number.intValue
             return LayoutXMLGravity(rawValue: rawValue)
         }
         set {
-            let number: NSNumber = NSNumber(integer: newValue.rawValue)
+            let number: NSNumber = NSNumber(value: newValue.rawValue)
             set(&AssociateKeys.layoutGravity, object: number)
         }
     }
@@ -476,7 +479,7 @@ extension UIView: LayoutXMLLayoutable {
     // MARK: Visibility
     
     public func updateVisibility() {
-        hidden = (visibility != .Visible)
+        isHidden = (visibility != .Visible)
     }
     
     // MARK: Refresh All Layouter
@@ -507,6 +510,7 @@ extension UIView: LayoutXMLLayoutable {
     }
 
     /// Measure Width
+    @objc
     public func measureWidth() {
         
         // gone
@@ -528,18 +532,18 @@ extension UIView: LayoutXMLLayoutable {
             // label
             if let label = self as? UILabel {
                 
-                let size = CGSizeMake(CGFloat.max, CGFloat.max)
+                let size = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
                 
                 // depends on attributed text
-                if let attributedText = label.attributedText where attributedText.length > 0 {
-                    let textSize = attributedText.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, context: nil).size
-                    _size.width = CGSizeMake(ceil(textSize.width), ceil(textSize.height)).width
+                if let attributedText = label.attributedText, attributedText.length > 0 {
+                    let textSize = attributedText.boundingRect(with: size, options: .usesLineFragmentOrigin, context: nil).size
+                    _size.width = CGSize(width: ceil(textSize.width), height: ceil(textSize.height)).width
                 }
                 // depends on standard text
-                else if let text = label.text where text.characters.count > 0 {
-                    let attributes = [NSFontAttributeName: label.font]
-                    let textSize = text.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: attributes, context: nil).size
-                    _size.width = CGSizeMake(ceil(textSize.width), ceil(textSize.height)).width
+                else if let text = label.text, let font = label.font, text.count > 0 {
+                    let attributes = [NSAttributedStringKey.font: font]
+                    let textSize = text.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size
+                    _size.width = CGSize(width: ceil(textSize.width), height: ceil(textSize.height)).width
                 }
                 // no text
                 else {
@@ -551,10 +555,10 @@ extension UIView: LayoutXMLLayoutable {
                 _size.width = image.size.width
             }
             // button
-            else if let button = self as? UIButton, titleLabel = button.titleLabel, title = titleLabel.text {
-                let size = CGSizeMake(CGFloat.max, CGFloat.max)
-                let attributes = [NSFontAttributeName: titleLabel.font]
-                _size.width = title.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: attributes, context: nil).size.width
+            else if let button = self as? UIButton, let titleLabel = button.titleLabel, let title = titleLabel.text, let font = titleLabel.font {
+                let size = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+                let attributes = [NSAttributedStringKey.font: font]
+                _size.width = title.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.width
             }
             // no measurable content
             else {
@@ -568,6 +572,7 @@ extension UIView: LayoutXMLLayoutable {
     }
     
     /// Measure Height
+    @objc
     public func measureHeight() {
         
         // gone
@@ -589,18 +594,18 @@ extension UIView: LayoutXMLLayoutable {
             // label
             if let label = self as? UILabel {
                 
-                let size = CGSizeMake(_size.width, CGFloat.max)
+                let size = CGSize(width: _size.width, height: CGFloat.greatestFiniteMagnitude)
                 
                 // depends on attributed text
-                if let attributedText = label.attributedText where attributedText.length > 0 {
-                    let textSize = attributedText.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, context: nil).size
-                    _size.height = CGSizeMake(ceil(textSize.width), ceil(textSize.height)).height
+                if let attributedText = label.attributedText, attributedText.length > 0 {
+                    let textSize = attributedText.boundingRect(with: size, options: .usesLineFragmentOrigin, context: nil).size
+                    _size.height = CGSize(width: ceil(textSize.width), height: ceil(textSize.height)).height
                 }
                 // depends on standard text
-                else if let text = label.text where text.characters.count > 0 {
-                    let attributes = [NSFontAttributeName: label.font]
-                    let textSize = text.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: attributes, context: nil).size
-                    _size.height = CGSizeMake(ceil(textSize.width), ceil(textSize.height)).height
+                else if let text = label.text, let font = label.font, text.count > 0 {
+                    let attributes = [NSAttributedStringKey.font: font]
+                    let textSize = text.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size
+                    _size.height = CGSize(width: ceil(textSize.width), height: ceil(textSize.height)).height
                 }
                 // no text
                 else {
@@ -612,10 +617,10 @@ extension UIView: LayoutXMLLayoutable {
                 _size.height = image.size.height
             }
             // button
-            else if let button = self as? UIButton, titleLabel = button.titleLabel, title = titleLabel.text {
-                let size = CGSizeMake(_size.width, CGFloat.max)
-                let attributes = [NSFontAttributeName: titleLabel.font]
-                _size.height = title.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: attributes, context: nil).size.height
+            else if let button = self as? UIButton, let titleLabel = button.titleLabel, let title = titleLabel.text, let font = titleLabel.font {
+                let size = CGSize(width: _size.width, height: CGFloat.greatestFiniteMagnitude)
+                let attributes = [NSAttributedStringKey.font: font]
+                _size.height = title.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
             }
             // no measurable content
             else {
@@ -629,14 +634,14 @@ extension UIView: LayoutXMLLayoutable {
     }
     
     /// Search View From Layout ID
-    public func findViewByID(id: Int) -> UIView? {
+    public func findViewByID(_ id: Int) -> UIView? {
 
         for subview in self.subviews {
             
             if subview.layoutID == id {
                 return subview
             }
-            if let view: UIView? = subview.findViewByID(id) {
+            if let view: UIView = subview.findViewByID(id) {
                 return view
             }
         }

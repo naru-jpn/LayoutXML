@@ -12,9 +12,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
-        self.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         // Do any additional setup after loading the view, typically from a nib.
         
         self.view.loadLayoutXML(resource: "layouts") {

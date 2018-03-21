@@ -50,10 +50,10 @@ extension LayoutXMLLayouter where Self: UIView {
 }
 
 /// Manage shared serial queue for work of layout.
-class LayoutXMLLayouterWorker: NSObject, OS_dispatch_queue {
-    class var worker: OS_dispatch_queue {
+class LayoutXMLLayouterWorker: NSObject {
+    class var worker: DispatchQueue {
         struct Static {
-            static let instance: OS_dispatch_queue = dispatch_queue_create("com.jpn.naru.layoutxml.worker", DISPATCH_QUEUE_SERIAL)
+            static let instance: DispatchQueue = DispatchQueue(label: "com.jpn.naru.layoutxml.worker")
         }
         return Static.instance
     }
