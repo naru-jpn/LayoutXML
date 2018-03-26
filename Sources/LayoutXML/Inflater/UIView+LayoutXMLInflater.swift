@@ -178,6 +178,11 @@ extension UIView {
                 label.text = LayoutXML.R.string(value)
             }
             
+            // text color
+            if let value = attributes[LayoutXML.Constants.Label.textColor], let color: UIColor = LayoutXML.R.color(value) {
+                label.textColor = color
+            }
+            
             // number of lines
             if let value = attributes[LayoutXML.Constants.Label.numberOfLines], let numberOfLines: Int = Int(value) {
                 label.numberOfLines = numberOfLines

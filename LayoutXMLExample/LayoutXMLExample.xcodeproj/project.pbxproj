@@ -25,6 +25,7 @@
 		4332DCCE2067BED4000ABC71 /* AbsoluteLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4332DCC52067BED4000ABC71 /* AbsoluteLayout.swift */; };
 		4332DCCF2067BED4000ABC71 /* UIView+LayoutXMLInflater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4332DCC72067BED4000ABC71 /* UIView+LayoutXMLInflater.swift */; };
 		4332DCD02067BED4000ABC71 /* LayoutXMLInflater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4332DCC82067BED4000ABC71 /* LayoutXMLInflater.swift */; };
+		433723AE2068F12200298C0D /* LayoutXMLColors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 433723AD2068F12200298C0D /* LayoutXMLColors.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		4332DCC52067BED4000ABC71 /* AbsoluteLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbsoluteLayout.swift; sourceTree = "<group>"; };
 		4332DCC72067BED4000ABC71 /* UIView+LayoutXMLInflater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+LayoutXMLInflater.swift"; sourceTree = "<group>"; };
 		4332DCC82067BED4000ABC71 /* LayoutXMLInflater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutXMLInflater.swift; sourceTree = "<group>"; };
+		433723AD2068F12200298C0D /* LayoutXMLColors.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = LayoutXMLColors.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				4332DC762067A005000ABC71 /* AppDelegate.swift */,
 				4332DC782067A005000ABC71 /* ViewController.swift */,
 				4332DC9E2067A100000ABC71 /* xmls */,
+				433723AD2068F12200298C0D /* LayoutXMLColors.plist */,
 				4332DC7A2067A005000ABC71 /* Main.storyboard */,
 				4332DC7D2067A005000ABC71 /* Assets.xcassets */,
 				4332DC7F2067A005000ABC71 /* LaunchScreen.storyboard */,
@@ -95,9 +98,9 @@
 		4332DC9E2067A100000ABC71 /* xmls */ = {
 			isa = PBXGroup;
 			children = (
+				4332DCA32067A1DA000ABC71 /* layouts.xml */,
 				4332DC9F2067A100000ABC71 /* sample.xml */,
 				4332DCA22067A1DA000ABC71 /* absolute_layout.xml */,
-				4332DCA32067A1DA000ABC71 /* layouts.xml */,
 				4332DCA12067A1DA000ABC71 /* linear_layout.xml */,
 				4332DCA42067A1DA000ABC71 /* relative_layout.xml */,
 			);
@@ -210,6 +213,7 @@
 				4332DC812067A005000ABC71 /* LaunchScreen.storyboard in Resources */,
 				4332DC7E2067A005000ABC71 /* Assets.xcassets in Resources */,
 				4332DC7C2067A005000ABC71 /* Main.storyboard in Resources */,
+				433723AE2068F12200298C0D /* LayoutXMLColors.plist in Resources */,
 				4332DCA02067A100000ABC71 /* sample.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

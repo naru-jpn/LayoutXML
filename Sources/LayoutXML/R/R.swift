@@ -92,8 +92,8 @@ extension LayoutXML {
             }
             // @color
             if string.hasPrefix("@color/") {
-                let name: String = string.replacingOccurrences(of: "@color/", with: "")
-                guard let code = ColorStore.store.dictionary?[name] else {
+                let key: String = string.replacingOccurrences(of: "@color/", with: "")
+                guard let code = ColorStore.code(key: key) else {
                     return nil
                 }
                 return color(code: code)

@@ -109,6 +109,8 @@ public struct LayoutXML {
         
         public struct Label {
             
+            static let textColor = "text_color"
+            
             static let numberOfLines = "number_of_lines"
             
             static let lineBreakMode = "line_break_mode"
