@@ -2,7 +2,7 @@
 
 Android styled XML template engine for iOS written in Swift. (Mainly for technical study.)
 
-## Try example project
+### Try example project
 
 ```
 $ pod try LayoutXML
