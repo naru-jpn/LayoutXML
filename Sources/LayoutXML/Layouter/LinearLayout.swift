@@ -12,7 +12,9 @@ import Foundation
 /// Orientation
 public enum LayoutXMLOrientation: Int {
     
+    /// Horizontal
     case horizontal = 0
+    /// Vertical
     case vertical = 1
     
     init(string: String) {
