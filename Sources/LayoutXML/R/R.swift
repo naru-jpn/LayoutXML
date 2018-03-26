@@ -130,7 +130,7 @@ extension LayoutXML {
                         return id
                     }
                     
-                    self.store.dictionary[name] = store.incremented
+                    store.dictionary[name] = store.incremented
                     store.incremented = store.incremented + 1
                                         
                     return store.incremented - 1

@@ -12,12 +12,12 @@ import Foundation
 extension UIView {
     
     func loadLayoutXML(resource: String) {
-        self.loadLayoutXML(resource: resource, completion: nil)
+        loadLayoutXML(resource: resource, completion: nil)
     }
     
     func loadLayoutXML(resource: String, completion: (() -> ())?) {
         
-        self._size = self.frame.size
+        _size = frame.size
         
         LayoutXMLInflater().inflate(resource: resource) { converter, views in
             

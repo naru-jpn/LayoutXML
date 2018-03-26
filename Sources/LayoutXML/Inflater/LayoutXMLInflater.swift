@@ -94,7 +94,7 @@ final class LayoutXMLInflater: NSObject, XMLParserDelegate {
     
     func parserDidEndDocument(_ parser: XMLParser) {
         
-        if let completion = self.completion {
+        if let completion = completion {
 
             let views = objects.flatMap { object in
                 return convertXMLElementToView(xmlElement: object)

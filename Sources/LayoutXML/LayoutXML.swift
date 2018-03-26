@@ -487,14 +487,14 @@ extension UIView: LayoutXMLLayoutable {
     public func refreshLayout() {
         
         // Refresh My Size
-        if let _ = self.superview as? UIWindow {
-            self._size = self.frame.size
+        if let _ = superview as? UIWindow {
+            _size = frame.size
         } else {
             measure()
         }
         
         // Refresh All Layouter
-        for subview in self.subviews {
+        for subview in subviews {
             if let layouter = subview as? LayoutXMLLayouter {
                 layouter.requestLayout()
             }
@@ -636,7 +636,7 @@ extension UIView: LayoutXMLLayoutable {
     /// Search View From Layout ID
     public func findViewByID(_ id: Int) -> UIView? {
 
-        for subview in self.subviews {
+        for subview in subviews {
             
             if subview.layoutID == id {
                 return subview
