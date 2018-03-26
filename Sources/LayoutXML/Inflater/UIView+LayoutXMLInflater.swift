@@ -12,12 +12,12 @@ import Foundation
 extension UIView {
     
     func loadLayoutXML(resource: String) {
-        self.loadLayoutXML(resource: resource, completion: nil)
+        loadLayoutXML(resource: resource, completion: nil)
     }
     
     func loadLayoutXML(resource: String, completion: (() -> ())?) {
         
-        self._size = self.frame.size
+        _size = frame.size
         
         LayoutXMLInflater().inflate(resource: resource) { converter, views in
             
@@ -44,106 +44,106 @@ extension UIView {
         let attributes: [String: String] = layoutXMLElement.attributes
         
         // layout id
-        if let string = attributes[LayoutXML.Constants.LayoutID] {
+        if let string = attributes[LayoutXML.Constants.layoutID] {
             if let layoutID = LayoutXML.R.id(string) {
                 view.layoutID = layoutID
             }
         }
     
         // size info
-        let sizeInfo = layoutXMLSize(width: attributes[LayoutXML.Constants.Width], height: attributes[LayoutXML.Constants.Height])
+        let sizeInfo = layoutXMLSize(width: attributes[LayoutXML.Constants.width], height: attributes[LayoutXML.Constants.height])
         view.sizeInfo = sizeInfo
         
         // margin
-        if let margin = attributes[LayoutXML.Constants.Margin] {
+        if let margin = attributes[LayoutXML.Constants.margin] {
             view.margin = layoutXMLEdgeInsets(string: margin)
         } else {
-            let top = attributes[LayoutXML.Constants.Margins.Top]
-            let right = attributes[LayoutXML.Constants.Margins.Right]
-            let bottom = attributes[LayoutXML.Constants.Margins.Bottom]
-            let left = attributes[LayoutXML.Constants.Margins.Left]
+            let top = attributes[LayoutXML.Constants.Margins.top]
+            let right = attributes[LayoutXML.Constants.Margins.right]
+            let bottom = attributes[LayoutXML.Constants.Margins.bottom]
+            let left = attributes[LayoutXML.Constants.Margins.left]
             view.margin = layoutXMLEdgeInsets(top: top, right: right, bottom: bottom, left: left)
         }
         
         // padding
-        if let padding = attributes[LayoutXML.Constants.Padding] {
+        if let padding = attributes[LayoutXML.Constants.padding] {
             view.padding = layoutXMLEdgeInsets(string: padding)
         } else {
-            let top = attributes[LayoutXML.Constants.Paddings.Top]
-            let right = attributes[LayoutXML.Constants.Paddings.Right]
-            let bottom = attributes[LayoutXML.Constants.Paddings.Bottom]
-            let left = attributes[LayoutXML.Constants.Paddings.Left]
+            let top = attributes[LayoutXML.Constants.Paddings.top]
+            let right = attributes[LayoutXML.Constants.Paddings.right]
+            let bottom = attributes[LayoutXML.Constants.Paddings.bottom]
+            let left = attributes[LayoutXML.Constants.Paddings.left]
             view.padding = layoutXMLEdgeInsets(top: top, right: right, bottom: bottom, left: left)
         }
         
         // background color
-        if let value = attributes[LayoutXML.Constants.BackgroundColor] {
+        if let value = attributes[LayoutXML.Constants.backgroundColor] {
             if let color: UIColor = LayoutXML.R.color(value) {
                 view.backgroundColor = color
             }
         }
         
         // weight
-        if let value = attributes[LayoutXML.Constants.LinearLayout.Weight] {
+        if let value = attributes[LayoutXML.Constants.LinearLayout.weight] {
             if let double: Double = Double(value) {
                 view.weight = CGFloat(double)
             }
         }
         
         // gravity
-        if let value = attributes[LayoutXML.Constants.LinearLayout.Gravity] {
+        if let value = attributes[LayoutXML.Constants.LinearLayout.gravity] {
             view.gravity = LayoutXMLGravity(string: value)
         }
 
         // layout gravity
-        if let value = attributes[LayoutXML.Constants.LinearLayout.LayoutGravity] {
+        if let value = attributes[LayoutXML.Constants.LinearLayout.layoutGravity] {
             view.layoutGravity = LayoutXMLGravity(string: value)
         }
         
         // dependency
-        if let value = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.AlignParent] {
+        if let value = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.alignParent] {
             view.dependency.alignParent = LayoutXMLRelativeAlignParent(string: value)
         }
         
         // dependency (align)
-        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.Top] {
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.top] {
             if let layoutID: Int = LayoutXML.R.id(string) {
                 view.dependency.anchors.top = LayoutXMLRelativeAnchor(type: .align, layoutID: layoutID)
             }
         }
-        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.Left] {
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.left] {
             if let layoutID: Int = LayoutXML.R.id(string) {
                 view.dependency.anchors.left = LayoutXMLRelativeAnchor(type: .align, layoutID: layoutID)
             }
         }
-        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.Bottom] {
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.bottom] {
             if let layoutID: Int = LayoutXML.R.id(string) {
                 view.dependency.anchors.bottom = LayoutXMLRelativeAnchor(type: .align, layoutID: layoutID)
             }
         }
-        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.Right] {
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Aligns.right] {
             if let layoutID: Int = LayoutXML.R.id(string) {
                 view.dependency.anchors.right = LayoutXMLRelativeAnchor(type: .align, layoutID: layoutID)
             }
         }
         
         // dependency (position)
-        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.Top] {
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.top] {
             if let layoutID: Int = LayoutXML.R.id(string) {
                 view.dependency.anchors.top = LayoutXMLRelativeAnchor(type: .position, layoutID: layoutID)
             }
         }
-        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.Right] {
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.right] {
             if let layoutID: Int = LayoutXML.R.id(string) {
                 view.dependency.anchors.left = LayoutXMLRelativeAnchor(type: .position, layoutID: layoutID)
             }
         }
-        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.Bottom] {
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.bottom] {
             if let layoutID: Int = LayoutXML.R.id(string) {
                 view.dependency.anchors.bottom = LayoutXMLRelativeAnchor(type: .position, layoutID: layoutID)
             }
         }
-        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.Left] {
+        if let string = attributes[LayoutXML.Constants.RelativeLayout.AlignRules.Positions.left] {
             if let layoutID: Int = LayoutXML.R.id(string) {
                 view.dependency.anchors.right = LayoutXMLRelativeAnchor(type: .position, layoutID: layoutID)
             }
@@ -153,12 +153,12 @@ extension UIView {
         if let linearLayout = view as AnyObject as? LinearLayout {
             
             // orientation
-            if let value = attributes[LayoutXML.Constants.LinearLayout.Orientation] {
+            if let value = attributes[LayoutXML.Constants.LinearLayout.orientation] {
                 linearLayout.orientation = LayoutXMLOrientation(string: value)
             }
             
             // weight sum
-            if let value = attributes[LayoutXML.Constants.LinearLayout.WeightSum], let weightSum: Double = Double(value) {
+            if let value = attributes[LayoutXML.Constants.LinearLayout.weightSum], let weightSum: Double = Double(value) {
                 linearLayout.weightSum = CGFloat(weightSum)
             }
         }
@@ -167,19 +167,19 @@ extension UIView {
         if let label = view as AnyObject as? UILabel {
             
             // font
-            if let value = attributes[LayoutXML.Constants.Font] {
+            if let value = attributes[LayoutXML.Constants.font] {
                 if let font = LayoutXML.R.font(value) {
                     label.font = font
                 }
             }
             
             // text
-            if let value = attributes[LayoutXML.Constants.Text] {
+            if let value = attributes[LayoutXML.Constants.text] {
                 label.text = LayoutXML.R.string(value)
             }
             
             // number of lines
-            if let value = attributes[LayoutXML.Constants.Label.NumberOfLines], let numberOfLines: Int = Int(value) {
+            if let value = attributes[LayoutXML.Constants.Label.numberOfLines], let numberOfLines: Int = Int(value) {
                 label.numberOfLines = numberOfLines
             }
         }
@@ -188,14 +188,14 @@ extension UIView {
         if let button = view as AnyObject as? UIButton {
             
             // font
-            if let value = attributes[LayoutXML.Constants.Font] {
+            if let value = attributes[LayoutXML.Constants.font] {
                 if let font = LayoutXML.R.font(value) {
                     button.titleLabel?.font = font
                 }
             }
             
             // text
-            if let value = attributes[LayoutXML.Constants.Text] {
+            if let value = attributes[LayoutXML.Constants.text] {
                 button.setTitle(LayoutXML.R.string(value), for: .normal)
             }
         }

@@ -12,14 +12,16 @@ import Foundation
 /// Orientation
 public enum LayoutXMLOrientation: Int {
     
-    case Horizontal = 0
-    case Vertical = 1
+    /// Horizontal
+    case horizontal = 0
+    /// Vertical
+    case vertical = 1
     
     init(string: String) {
-        if string == LayoutXML.Constants.LinearLayout.Orientations.Vertical {
-            self = .Vertical
+        if string == LayoutXML.Constants.LinearLayout.Orientations.vertical {
+            self = .vertical
         } else {
-            self = .Horizontal
+            self = .horizontal
         }
     }
 }
@@ -45,19 +47,19 @@ public struct LayoutXMLGravity: OptionSet {
         
         func gravity(_ component: String) -> LayoutXMLGravity {
             switch component {
-            case LayoutXML.Constants.LinearLayout.Gravities.Left:
+            case LayoutXML.Constants.LinearLayout.Gravities.left:
                 return .left
-            case LayoutXML.Constants.LinearLayout.Gravities.Right:
+            case LayoutXML.Constants.LinearLayout.Gravities.right:
                 return .right
-            case LayoutXML.Constants.LinearLayout.Gravities.CenterHorizontal:
+            case LayoutXML.Constants.LinearLayout.Gravities.centerHorizontal:
                 return .centerHorizontal
-            case LayoutXML.Constants.LinearLayout.Gravities.Top:
+            case LayoutXML.Constants.LinearLayout.Gravities.top:
                 return .top
-            case LayoutXML.Constants.LinearLayout.Gravities.Bottom:
+            case LayoutXML.Constants.LinearLayout.Gravities.bottom:
                 return .bottom
-            case LayoutXML.Constants.LinearLayout.Gravities.CenterVertical:
+            case LayoutXML.Constants.LinearLayout.Gravities.centerVertical:
                 return .centerVertical
-            case LayoutXML.Constants.LinearLayout.Gravities.Center:
+            case LayoutXML.Constants.LinearLayout.Gravities.center:
                 return .center
             default:
                 return .default
@@ -82,7 +84,7 @@ public struct LayoutXMLGravity: OptionSet {
 
 public class LinearLayout: UIView, LayoutXMLLayouter {
     
-    public var orientation: LayoutXMLOrientation = .Horizontal
+    public var orientation: LayoutXMLOrientation = .horizontal
     
     public var weightSum: CGFloat = 0.0
         
@@ -93,11 +95,11 @@ public class LinearLayout: UIView, LayoutXMLLayouter {
     override public func measureWidth() {
                 
         // Gone
-        if self.visibility == .Gone {
-            self._size.width = LayoutXMLLength.Zero
+        if self.visibility == .gone {
+            self._size.width = LayoutXMLLength.zero
         }
         // Match Parent
-        else if self.sizeInfo.width == LayoutXMLLength.MatchParent {
+        else if self.sizeInfo.width == LayoutXMLLength.matchParent {
             
             if let superview: UIView = self.superview {
                 self._size.width = superview._size.width - (margin.left + margin.right) - (superview.padding.left + superview.padding.right)
@@ -110,13 +112,13 @@ public class LinearLayout: UIView, LayoutXMLLayouter {
             }
         }
         // Wrap Content
-        else if self.sizeInfo.width == LayoutXMLLength.WrapContent {
+        else if self.sizeInfo.width == LayoutXMLLength.wrapContent {
             
             let matchParents: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
-                return subview.sizeInfo.width == LayoutXMLLength.MatchParent ? subview : nil
+                return subview.sizeInfo.width == LayoutXMLLength.matchParent ? subview : nil
             }
             let others: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
-                return subview.sizeInfo.width != LayoutXMLLength.MatchParent ? subview : nil
+                return subview.sizeInfo.width != LayoutXMLLength.matchParent ? subview : nil
             }
             
             for subview in others {
@@ -144,11 +146,11 @@ public class LinearLayout: UIView, LayoutXMLLayouter {
     override public func measureHeight() {
         
         // Gone
-        if self.visibility == .Gone {
-            self._size.height = LayoutXMLLength.Zero
+        if self.visibility == .gone {
+            self._size.height = LayoutXMLLength.zero
         }
         // Match Parent
-        else if self.sizeInfo.height == LayoutXMLLength.MatchParent {
+        else if self.sizeInfo.height == LayoutXMLLength.matchParent {
             
             if let superview: UIView = self.superview {
                 self._size.height = superview._size.height - (margin.top + margin.bottom) - (superview.padding.top + superview.padding.bottom)
@@ -161,13 +163,13 @@ public class LinearLayout: UIView, LayoutXMLLayouter {
             }
         }
         // Wrap Content
-        else if self.sizeInfo.height == LayoutXMLLength.WrapContent {
+        else if self.sizeInfo.height == LayoutXMLLength.wrapContent {
             
             let matchParents: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
-                return subview.sizeInfo.height == LayoutXMLLength.MatchParent ? subview : nil
+                return subview.sizeInfo.height == LayoutXMLLength.matchParent ? subview : nil
             }
             let others: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
-                return subview.sizeInfo.height != LayoutXMLLength.MatchParent ? subview : nil
+                return subview.sizeInfo.height != LayoutXMLLength.matchParent ? subview : nil
             }
             
             for subview in others {
@@ -204,7 +206,7 @@ public class LinearLayout: UIView, LayoutXMLLayouter {
         self.widthSum = widths.reduce(0.0, +)
         
         // Adjust Subviews Horizontal
-        if self.orientation == .Horizontal {
+        if self.orientation == .horizontal {
             
             let weightSum: CGFloat = self.weightSum > 0.0 ? self.weightSum : self.subviews.map { (subview: UIView) -> CGFloat in
                 return subview.weight
@@ -240,7 +242,7 @@ public class LinearLayout: UIView, LayoutXMLLayouter {
         self.heightSum = heights.reduce(0.0, +)
         
         // Adjust Subviews Vertical
-        if self.orientation == .Vertical {
+        if self.orientation == .vertical {
             
             let weightSum: CGFloat = self.weightSum > 0.0 ? self.weightSum : self.subviews.map { (subview: UIView) -> CGFloat in
                 return subview.weight
@@ -266,16 +268,16 @@ public class LinearLayout: UIView, LayoutXMLLayouter {
     
     public func layout() {
         
-        if self.visibility == .Gone {
+        if self.visibility == .gone {
             return
         }
         
         self.frame = CGRect(x: self.margin.left, y: self.margin.top, width: _size.width, height: _size.height)
 
-        if self.orientation == .Horizontal {
+        if self.orientation == .horizontal {
             layoutHorizontal()
         }
-        if self.orientation == .Vertical {
+        if self.orientation == .vertical {
             layoutVertical()
         }
     }
@@ -333,27 +335,27 @@ public class LinearLayout: UIView, LayoutXMLLayouter {
     
     private func layoutVertical() {
         
-        var buf: CGFloat = self.heightSum
-        var currentPosition: CGPoint = CGPoint(x: self.padding.left, y: self.padding.top)
+        var buf: CGFloat = heightSum
+        var currentPosition: CGPoint = CGPoint(x: padding.left, y: padding.top)
         
-        let usableWidth: CGFloat = self._size.width - (self.padding.left + self.padding.right)
-        let usableHeight: CGFloat = self._size.height - (self.padding.top + self.padding.bottom)
-        let majorGravity: LayoutXMLGravity =  LayoutXMLGravity(rawValue: self.gravity.rawValue & LayoutXMLGravity.verticalMask.rawValue)
-        let minorGravity: LayoutXMLGravity =  LayoutXMLGravity(rawValue: self.gravity.rawValue & LayoutXMLGravity.horizontalMask.rawValue)
+        let usableWidth: CGFloat = _size.width - (padding.left + padding.right)
+        let usableHeight: CGFloat = _size.height - (padding.top + padding.bottom)
+        let majorGravity: LayoutXMLGravity =  LayoutXMLGravity(rawValue: gravity.rawValue & LayoutXMLGravity.verticalMask.rawValue)
+        let minorGravity: LayoutXMLGravity =  LayoutXMLGravity(rawValue: gravity.rawValue & LayoutXMLGravity.horizontalMask.rawValue)
         
         if majorGravity.isActive(gravity: .bottom) {
-            currentPosition.y = currentPosition.y + usableHeight - self.heightSum
+            currentPosition.y = currentPosition.y + usableHeight - heightSum
         } else if majorGravity.isActive(gravity: .centerVertical) {
-            currentPosition.y = currentPosition.y + (usableHeight - self.heightSum)/2.0
+            currentPosition.y = currentPosition.y + (usableHeight - heightSum)/2.0
         }
         
-        for subview in self.subviews {
+        for subview in subviews {
             
             if majorGravity == .default {
                 if subview.gravity.isActive(gravity: .bottom) {
-                    currentPosition.y = (self.padding.top + usableHeight - buf)
+                    currentPosition.y = (padding.top + usableHeight - buf)
                 } else if subview.gravity.isActive(gravity: .centerVertical) {
-                    currentPosition.y = (self.padding.top + usableHeight - buf - currentPosition.y)/2.0
+                    currentPosition.y = (padding.top + usableHeight - buf - currentPosition.y)/2.0
                 }
             }
             
@@ -363,11 +365,11 @@ public class LinearLayout: UIView, LayoutXMLLayouter {
             let subUsableWidth: CGFloat = (subview._size.width + subview.margin.left + subview.margin.right)
             
             if localGravity.isActive(gravity: .right) {
-                currentPosition.x = self.padding.left + subview.margin.left + (usableWidth - subUsableWidth)
+                currentPosition.x = padding.left + subview.margin.left + (usableWidth - subUsableWidth)
             } else if localGravity.isActive(gravity: .centerHorizontal) {
-                currentPosition.x = self.padding.left + subview.margin.left + (usableWidth - subUsableWidth)/2.0
+                currentPosition.x = padding.left + subview.margin.left + (usableWidth - subUsableWidth)/2.0
             } else {
-                currentPosition.x = self.padding.left + subview.margin.left
+                currentPosition.x = padding.left + subview.margin.left
             }
             
             subview._origin = currentPosition

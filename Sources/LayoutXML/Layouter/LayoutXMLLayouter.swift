@@ -12,27 +12,30 @@ import Foundation
 /// Protocol to layout child views.
 public protocol LayoutXMLLayouter {
     
+    /// Measure subviews horizontal and vertical.
     func measureSubviews()
     
+    /// Measure subviews horizontal.
     func measureSubviewsHorizontal()
     
+    /// Measure subviews vertical.
     func measureSubviewsVertical()
     
-    /// Refresh Layout
+    /// Request to refresh layout.
     func requestLayout()
     
-    /// Layout Children
+    /// Layout child views.
     func layout()
 }
 
-/// Defalut implementations for layouter of UIView.
+/// Defalut implementations for layouter.
 extension LayoutXMLLayouter where Self: UIView {
     
-    /// Execute measure and layout subviews.
+    /// Execute measure and layout child views.
     public func requestLayout() {
-        self.measure()
-        self.measureSubviews()
-        self.layout()
+        measure()
+        measureSubviews()
+        layout()
     }
     
     public func measureSubviews() {
@@ -40,7 +43,7 @@ extension LayoutXMLLayouter where Self: UIView {
         measureSubviewsHorizontal()
         measureSubviewsVertical()
         
-        let layouters: [LayoutXMLLayouter] = self.subviews.flatMap { (subview: UIView) -> LayoutXMLLayouter? in
+        let layouters: [LayoutXMLLayouter] = subviews.flatMap { (subview: UIView) -> LayoutXMLLayouter? in
             return subview as? LayoutXMLLayouter
         }
         for layouter in layouters {
@@ -49,7 +52,7 @@ extension LayoutXMLLayouter where Self: UIView {
     }
 }
 
-/// Manage shared serial queue for work of layout.
+/// Apply shared serial queue for work of layout.
 class LayoutXMLLayouterWorker: NSObject {
     class var worker: DispatchQueue {
         struct Static {
