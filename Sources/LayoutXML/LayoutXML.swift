@@ -13,66 +13,66 @@ public struct LayoutXML {
     
     public struct Constants {
         
-        static let XMLDocument = "xml"
+        static let xmlDocument = "xml"
         
-        static let LayoutID = "id"
-        static let Width = "width"
-        static let Height = "height"
-        static let Font = "font"
-        static let Text = "text"
-        static let Title = "title"
-        static let BackgroundColor = "background_color"
+        static let layoutID = "id"
+        static let width = "width"
+        static let height = "height"
+        static let font = "font"
+        static let text = "text"
+        static let title = "title"
+        static let backgroundColor = "background_color"
         
-        static let Margin = "margin"
+        static let margin = "margin"
         public struct Margins {
-            static let Top = "margin-top"
-            static let Right = "margin-right"
-            static let Bottom = "margin-bottom"
-            static let Left = "margin-left"
+            static let top = "margin-top"
+            static let right = "margin-right"
+            static let bottom = "margin-bottom"
+            static let left = "margin-left"
         }
         
-        static let Padding = "padding"
+        static let padding = "padding"
         public struct Paddings {
-            static let Top = "padding-top"
-            static let Right = "padding-right"
-            static let Bottom = "padding-bottom"
-            static let Left = "padding-left"
+            static let top = "padding-top"
+            static let right = "padding-right"
+            static let bottom = "padding-bottom"
+            static let left = "padding-left"
         }
         
-        static let Visibility = "visibility"
+        static let visibility = "visibility"
         public struct Visibilities {
-            static let Visible = "visible"
-            static let Invisible = "invisible"
-            static let Gone = "gone"
+            static let visible = "visible"
+            static let invisible = "invisible"
+            static let gone = "gone"
         }
         
         public struct Length {
-            static let FillParent = "fill_parent"
-            static let MatchParent = "match_parent"
-            static let WrapContent = "wrap_content"
+            static let fillParent = "fill_parent"
+            static let matchParent = "match_parent"
+            static let wrapContent = "wrap_content"
         }
         
         public struct LinearLayout {
             
-            static let Weight = "weight"
-            static let WeightSum = "weight_sum"
+            static let weight = "weight"
+            static let weightSum = "weight_sum"
             
-            static let Gravity = "gravity"
-            static let LayoutGravity = "layout_gravity"
+            static let gravity = "gravity"
+            static let layoutGravity = "layout_gravity"
             public struct Gravities {
-                static let Top = "top"
-                static let Right = "right"
-                static let Bottom = "bottom"
-                static let Left = "left"
-                static let CenterHorizontal = "center_horizontal"
-                static let CenterVertical = "center_vertical"
-                static let Center = "center"
+                static let top = "top"
+                static let right = "right"
+                static let bottom = "bottom"
+                static let left = "left"
+                static let centerHorizontal = "center_horizontal"
+                static let centerVertical = "center_vertical"
+                static let center = "center"
             }
             
-            static let Orientation = "orientation"
+            static let orientation = "orientation"
             public struct Orientations {
-                static let Horizontal = "horizontal"
-                static let Vertical = "vertical"
+                static let horizontal = "horizontal"
+                static let vertical = "vertical"
             }
         }
         
@@ -81,48 +81,48 @@ public struct LayoutXML {
             public struct AlignRules {
                 
                 public struct Aligns {
-                    static let Top = "align_top"
-                    static let Left = "align_left"
-                    static let Bottom = "align_bottom"
-                    static let Right = "align_right"
+                    static let top = "align_top"
+                    static let left = "align_left"
+                    static let bottom = "align_bottom"
+                    static let right = "align_right"
                 }
                 
                 public struct Positions {
-                    static let Top = "above"
-                    static let Left = "to_left_of"
-                    static let Bottom = "below"
-                    static let Right = "to_right_of"
+                    static let top = "above"
+                    static let left = "to_left_of"
+                    static let bottom = "below"
+                    static let right = "to_right_of"
                 }
                 
-                static let AlignParent = "align_parent"
+                static let alignParent = "align_parent"
                 public struct AlignParents {
-                    static let Top = "top"
-                    static let Left = "left"
-                    static let Bottom = "bottom"
-                    static let Right = "right"
-                    static let CenterHorizontal = "center_horizontal"
-                    static let CenterVertical = "center_vertical"
-                    static let Center = "center"
+                    static let top = "top"
+                    static let left = "left"
+                    static let bottom = "bottom"
+                    static let right = "right"
+                    static let centerHorizontal = "center_horizontal"
+                    static let centerVertical = "center_vertical"
+                    static let center = "center"
                 }
             }
         }
         
         public struct Label {
             
-            static let NumberOfLines = "number_of_lines"
+            static let numberOfLines = "number_of_lines"
             
-            static let LineBreakMode = "line_break_mode"
+            static let lineBreakMode = "line_break_mode"
             public struct LineBreakModes {
-                static let ByWordWrapping = "word_wrapping"
-                static let ByCharWrapping = "char_wrapping"
-                static let ByClipping = "clipping"
-                static let ByTruncatingHead = "truncating_head"
-                static let ByTruncatingTail = "truncating_tail"
-                static let ByTruncatingMiddle = "truncating_middle"
+                static let wordWrapping = "word_wrapping"
+                static let charWrapping = "char_wrapping"
+                static let clipping = "clipping"
+                static let truncatingHead = "truncating_head"
+                static let truncatingTail = "truncating_tail"
+                static let truncatingMiddle = "truncating_middle"
             }
         }
         
-        static let ColorPlist = "LayoutXMLColors"
+        static let colorPlist = "LayoutXMLColors"
     }
 }
 
@@ -131,12 +131,12 @@ public struct LayoutXML {
 public typealias LayoutXMLLength = CGFloat
 
 public extension LayoutXMLLength {
-    public static let Zero = CGFloat(0.0)
+    public static let zero = CGFloat(0.0)
     /// having same length with parent
-    public static let FillParent  = CGFloat(-1.0)
-    public static let MatchParent = CGFloat(-1.0)
+    public static let fillParent  = CGFloat(-1.0)
+    public static let matchParent = CGFloat(-1.0)
     /// having enough length to wrap children
-    public static let WrapContent = CGFloat(-2.0)
+    public static let wrapContent = CGFloat(-2.0)
     /// otherwise, value is represent view length
 }
 
@@ -146,14 +146,14 @@ public extension LayoutXMLLength {
 public func layoutXMLLength(string: String?) -> LayoutXMLLength {
     
     guard let string = string?.lowercased().replacingOccurrences(of: " ", with: "") else {
-        return LayoutXMLLength.Zero
+        return LayoutXMLLength.zero
     }
     
-    if string == LayoutXML.Constants.Length.FillParent || string == LayoutXML.Constants.Length.MatchParent {
-        return LayoutXMLLength.MatchParent
+    if string == LayoutXML.Constants.Length.fillParent || string == LayoutXML.Constants.Length.matchParent {
+        return LayoutXMLLength.matchParent
     }
-    else if string == LayoutXML.Constants.Length.WrapContent {
-        return LayoutXMLLength.WrapContent
+    else if string == LayoutXML.Constants.Length.wrapContent {
+        return LayoutXMLLength.wrapContent
     }
     else {
         var float: Float = 0.0
@@ -179,7 +179,7 @@ public extension CGSize {
 }
 
 public extension LayoutXMLSize {
-    public static let Zero = LayoutXMLSize(width: 0.0, height: 0.0)
+    public static let zero = LayoutXMLSize(width: 0.0, height: 0.0)
 }
 
 /// Return layoutXMLSize from string.
@@ -193,10 +193,6 @@ public func layoutXMLSize(width: String?, height: String?) -> LayoutXMLSize {
 
 /// Edge insets
 public typealias LayoutXMLEdgeInsets = UIEdgeInsets
-
-public extension LayoutXMLEdgeInsets {
-    public static let Zero = UIEdgeInsets.zero
-}
 
 /// Return layoutXMLEdgeInsets from strings.
 /// - parameter top: top inset
@@ -214,7 +210,7 @@ public func layoutXMLEdgeInsets(top: String?, right: String?, bottom: String?, l
 public func layoutXMLEdgeInsets(string: String?) -> LayoutXMLEdgeInsets {
     
     guard let string = string else {
-        return LayoutXMLEdgeInsets.Zero
+        return LayoutXMLEdgeInsets.zero
     }
     
     let components = string.trimmingCharacters(in: CharacterSet.whitespaces).components(separatedBy: [" "])
@@ -228,7 +224,7 @@ public func layoutXMLEdgeInsets(string: String?) -> LayoutXMLEdgeInsets {
     case 4:
         return layoutXMLEdgeInsets(top: components[0], right: components[1], bottom: components[2], left: components[3])
     default:
-        return LayoutXMLEdgeInsets.Zero
+        return LayoutXMLEdgeInsets.zero
     }
 }
 
@@ -237,11 +233,11 @@ public func layoutXMLEdgeInsets(string: String?) -> LayoutXMLEdgeInsets {
 /// Visibility of view
 public enum LayoutXMLVisibility: Int {
     /// view is visible and view size is effected
-    case Visible = 0
+    case visible = 0
     /// view is invisible but view size is effected
-    case Invisible
+    case invisible
     /// view is invisible and view size is not effected
-    case Gone
+    case gone
 }
 
 
@@ -365,7 +361,7 @@ extension UIView: LayoutXMLLayoutable {
     public var margin: LayoutXMLEdgeInsets {
         get {
             guard let value = get(&AssociateKeys.margin) as? NSValue else {
-                return LayoutXMLEdgeInsets.Zero
+                return LayoutXMLEdgeInsets.zero
             }
             return value.uiEdgeInsetsValue
         }
@@ -393,7 +389,7 @@ extension UIView: LayoutXMLLayoutable {
     public var sizeInfo: LayoutXMLSize {
         get {
             guard let value = get(&AssociateKeys.sizeInfo) as? NSValue else {
-                return LayoutXMLSize.Zero
+                return LayoutXMLSize.zero
             }
             return value.cgSizeValue.LayoutXMLSizeValue()
         }
@@ -407,7 +403,7 @@ extension UIView: LayoutXMLLayoutable {
     public var visibility: LayoutXMLVisibility {
         get {
             guard let number = get(&AssociateKeys.visibility) as? NSNumber, let visibility = LayoutXMLVisibility(rawValue: number.intValue) else {
-                return LayoutXMLVisibility.Visible
+                return LayoutXMLVisibility.visible
             }
             return visibility
         }
@@ -467,7 +463,7 @@ extension UIView: LayoutXMLLayoutable {
         get {
             guard let values: NSArray = get(&AssociateKeys.dependency) as? NSArray else {
                 let anchors: LayoutXMLRelativeAnchors = LayoutXMLRelativeAnchors(top: nil, left: nil, bottom: nil, right: nil)
-                return LayoutXMLDependency(anchors: anchors, alignParent: .Default)
+                return LayoutXMLDependency(anchors: anchors, alignParent: .default)
             }
             return LayoutXMLDependency(values: values)
         }
@@ -479,7 +475,7 @@ extension UIView: LayoutXMLLayoutable {
     // MARK: Visibility
     
     public func updateVisibility() {
-        isHidden = (visibility != .Visible)
+        isHidden = (visibility != .visible)
     }
     
     // MARK: Refresh All Layouter
@@ -514,11 +510,11 @@ extension UIView: LayoutXMLLayoutable {
     public func measureWidth() {
         
         // gone
-        if visibility == .Gone {
-            _size.width = LayoutXMLLength.Zero
+        if visibility == .gone {
+            _size.width = LayoutXMLLength.zero
         }
         // match parent
-        else if sizeInfo.width == LayoutXMLLength.MatchParent {
+        else if sizeInfo.width == LayoutXMLLength.matchParent {
             
             if let superview = superview {
                 _size.width = superview._size.width - (margin.left + margin.right) - (superview.padding.left + superview.padding.right)
@@ -527,7 +523,7 @@ extension UIView: LayoutXMLLayoutable {
             }
         }
         // wrap content
-        else if sizeInfo.width == LayoutXMLLength.WrapContent {
+        else if sizeInfo.width == LayoutXMLLength.wrapContent {
             
             // label
             if let label = self as? UILabel {
@@ -547,7 +543,7 @@ extension UIView: LayoutXMLLayoutable {
                 }
                 // no text
                 else {
-                    _size.width = LayoutXMLLength.Zero
+                    _size.width = LayoutXMLLength.zero
                 }
             }
             // image view
@@ -576,11 +572,11 @@ extension UIView: LayoutXMLLayoutable {
     public func measureHeight() {
         
         // gone
-        if visibility == .Gone {
-            _size.height = LayoutXMLLength.Zero
+        if visibility == .gone {
+            _size.height = LayoutXMLLength.zero
         }
         // match parent
-        else if sizeInfo.height == LayoutXMLLength.MatchParent {
+        else if sizeInfo.height == LayoutXMLLength.matchParent {
             
             if let superview = superview {
                 _size.height = superview._size.height - (margin.top + margin.bottom) - (superview.padding.top + superview.padding.bottom)
@@ -589,7 +585,7 @@ extension UIView: LayoutXMLLayoutable {
             }
         }
         // wrap content
-        else if sizeInfo.height == LayoutXMLLength.WrapContent {
+        else if sizeInfo.height == LayoutXMLLength.wrapContent {
             
             // label
             if let label = self as? UILabel {
@@ -609,7 +605,7 @@ extension UIView: LayoutXMLLayoutable {
                 }
                 // no text
                 else {
-                    _size.height = LayoutXMLLength.Zero
+                    _size.height = LayoutXMLLength.zero
                 }
             }
             // image view

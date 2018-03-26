@@ -65,7 +65,7 @@ final class LayoutXMLInflater: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         
-        if LayoutXML.Constants.XMLDocument == elementName {
+        if LayoutXML.Constants.xmlDocument == elementName {
             return
         }
         

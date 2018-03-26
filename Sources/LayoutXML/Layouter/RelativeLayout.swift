@@ -25,37 +25,37 @@ public struct LayoutXMLRelativeAlignParent: OptionSet {
     public let rawValue: Int
     public init(rawValue: Int) { self.rawValue = rawValue }
     
-    static let Default          = LayoutXMLRelativeAlignParent(rawValue: 0)
-    static let Left             = LayoutXMLRelativeAlignParent(rawValue: 1 << 0)
-    static let Right            = LayoutXMLRelativeAlignParent(rawValue: 1 << 1)
-    static let CenterHorizontal = LayoutXMLRelativeAlignParent(rawValue: 1 << 2)
-    static let Top              = LayoutXMLRelativeAlignParent(rawValue: 1 << 3)
-    static let Bottom           = LayoutXMLRelativeAlignParent(rawValue: 1 << 4)
-    static let CenterVertical   = LayoutXMLRelativeAlignParent(rawValue: 1 << 5)
-    static let Center        : LayoutXMLRelativeAlignParent = [.CenterHorizontal, .CenterVertical]
-    static let HorizontalMask: LayoutXMLRelativeAlignParent = [.Right, .CenterHorizontal]
-    static let VerticalMask  : LayoutXMLRelativeAlignParent = [.Bottom, .CenterVertical]
+    static let `default`        = LayoutXMLRelativeAlignParent(rawValue: 0)
+    static let left             = LayoutXMLRelativeAlignParent(rawValue: 1 << 0)
+    static let right            = LayoutXMLRelativeAlignParent(rawValue: 1 << 1)
+    static let centerHorizontal = LayoutXMLRelativeAlignParent(rawValue: 1 << 2)
+    static let top              = LayoutXMLRelativeAlignParent(rawValue: 1 << 3)
+    static let bottom           = LayoutXMLRelativeAlignParent(rawValue: 1 << 4)
+    static let centerVertical   = LayoutXMLRelativeAlignParent(rawValue: 1 << 5)
+    static let center        : LayoutXMLRelativeAlignParent = [.centerHorizontal, .centerVertical]
+    static let horizontalMask: LayoutXMLRelativeAlignParent = [.right, .centerHorizontal]
+    static let verticalMask  : LayoutXMLRelativeAlignParent = [.bottom, .centerVertical]
     
     init(string: String) {
         
         func alignParent(component: String) -> LayoutXMLRelativeAlignParent {
             switch component {
-            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.Left:
-                return .Left
-            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.Right:
-                return .Right
-            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.CenterHorizontal:
-                return .CenterHorizontal
-            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.Top:
-                return .Top
-            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.Bottom:
-                return .Bottom
-            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.CenterVertical:
-                return .CenterVertical
-            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.Center:
-                return .Center
+            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.left:
+                return .left
+            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.right:
+                return .right
+            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.centerHorizontal:
+                return .centerHorizontal
+            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.top:
+                return .top
+            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.bottom:
+                return .bottom
+            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.centerVertical:
+                return .centerVertical
+            case LayoutXML.Constants.RelativeLayout.AlignRules.AlignParents.center:
+                return .center
             default:
-                return .Default
+                return .default
             }
         }
         
@@ -152,7 +152,7 @@ public struct LayoutXMLDependency {
         if let alignParent = values[1] as? Int {
             self.alignParent = LayoutXMLRelativeAlignParent(rawValue: alignParent)
         } else {
-            self.alignParent = .Default
+            self.alignParent = .default
         }
     }
 }
@@ -270,11 +270,11 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
     override public func measureWidth() {
         
         // Gone
-        if self.visibility == .Gone {
-            self._size.width = LayoutXMLLength.Zero
+        if self.visibility == .gone {
+            self._size.width = LayoutXMLLength.zero
         }
         // Match Parent
-        else if self.sizeInfo.width == LayoutXMLLength.MatchParent {
+        else if self.sizeInfo.width == LayoutXMLLength.matchParent {
             
             if let superview: UIView = self.superview {
                 self._size.width = superview._size.width - (margin.left + margin.right) - (superview.padding.left + superview.padding.right)
@@ -287,13 +287,13 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
             }
         }
         // Wrap Content
-        else if self.sizeInfo.width == LayoutXMLLength.WrapContent {
+        else if self.sizeInfo.width == LayoutXMLLength.wrapContent {
             
             let matchParents: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
-                return subview.sizeInfo.width == LayoutXMLLength.MatchParent ? subview : nil
+                return subview.sizeInfo.width == LayoutXMLLength.matchParent ? subview : nil
             }
             let others: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
-                return subview.sizeInfo.width != LayoutXMLLength.MatchParent ? subview : nil
+                return subview.sizeInfo.width != LayoutXMLLength.matchParent ? subview : nil
             }
             
             for subview in others {
@@ -321,11 +321,11 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
     override public func measureHeight() {
         
         // Gone
-        if self.visibility == .Gone {
-            self._size.height = LayoutXMLLength.Zero
+        if self.visibility == .gone {
+            self._size.height = LayoutXMLLength.zero
         }
         // Match Parent
-        else if self.sizeInfo.height == LayoutXMLLength.MatchParent {
+        else if self.sizeInfo.height == LayoutXMLLength.matchParent {
             
             if let superview: UIView = self.superview {
                 self._size.height = superview._size.height - (margin.top + margin.bottom) - (superview.padding.top + superview.padding.bottom)
@@ -338,13 +338,13 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
             }
         }
         // Wrap Content
-        else if self.sizeInfo.height == LayoutXMLLength.WrapContent {
+        else if self.sizeInfo.height == LayoutXMLLength.wrapContent {
             
             let matchParents: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
-                return subview.sizeInfo.height == LayoutXMLLength.MatchParent ? subview : nil
+                return subview.sizeInfo.height == LayoutXMLLength.matchParent ? subview : nil
             }
             let others: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
-                return subview.sizeInfo.height != LayoutXMLLength.MatchParent ? subview : nil
+                return subview.sizeInfo.height != LayoutXMLLength.matchParent ? subview : nil
             }
             
             for subview in others {
@@ -385,7 +385,7 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
                 
                 // Align Parent
                 let dependency: LayoutXMLDependency = node.view.dependency
-                let rawValue: Int = dependency.alignParent.rawValue & LayoutXMLRelativeAlignParent.HorizontalMask.rawValue
+                let rawValue: Int = dependency.alignParent.rawValue & LayoutXMLRelativeAlignParent.horizontalMask.rawValue
                 let alignParent: LayoutXMLRelativeAlignParent = LayoutXMLRelativeAlignParent(rawValue: rawValue)
                 
                 // Left Anchor
@@ -398,7 +398,7 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
                     }
                     isLeftFixed = true
                     
-                } else if alignParent.isActive(alignParent: .CenterHorizontal) {
+                } else if alignParent.isActive(alignParent: .centerHorizontal) {
                     
                     node.view._origin.x = (_size.width - node.view._size.width)/2.0
                     isLeftFixed = true
@@ -420,7 +420,7 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
                         node.view._origin.x = view._origin.x - (node.view._size.width + node.view.margin.right + view.margin.left)
                     }
 
-                } else if alignParent.isActive(alignParent: .Right) {
+                } else if alignParent.isActive(alignParent: .right) {
                     
                     node.view._origin.x = self._size.width - (node.view._size.width + node.view.margin.right + padding.right)
                 }
@@ -459,7 +459,7 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
                 
                 // Align Parent
                 let dependency: LayoutXMLDependency = node.view.dependency
-                let rawValue: Int = dependency.alignParent.rawValue & LayoutXMLRelativeAlignParent.VerticalMask.rawValue
+                let rawValue: Int = dependency.alignParent.rawValue & LayoutXMLRelativeAlignParent.verticalMask.rawValue
                 let alignParent: LayoutXMLRelativeAlignParent = LayoutXMLRelativeAlignParent(rawValue: rawValue)
                 
                 // Top Anchor
@@ -472,7 +472,7 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
                     }
                     isTopFixed = true
                     
-                } else if alignParent.isActive(alignParent: .CenterVertical) {
+                } else if alignParent.isActive(alignParent: .centerVertical) {
                     
                     node.view._origin.y = (_size.height - node.view._size.height)/2.0
                     isTopFixed = true
@@ -494,7 +494,7 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
                         node.view._origin.y = view._origin.y - (node.view._size.height + node.view.margin.bottom + view.margin.top)
                     }
                     
-                } else if alignParent.isActive(alignParent: .Bottom) {
+                } else if alignParent.isActive(alignParent: .bottom) {
                     
                     node.view._origin.y = _size.height - (node.view._size.height + node.view.margin.bottom + padding.bottom)
                 }
@@ -519,7 +519,7 @@ public class RelativeLayout: UIView, LayoutXMLLayouter {
     
     public func layout() {
         
-        if visibility == .Gone {
+        if visibility == .gone {
             return
         }
         

@@ -165,7 +165,7 @@ extension LayoutXML {
             /// - return: color code
             class func code(key: String) -> String? {
                 if nil == store.dictionary {
-                    if let path = Bundle.main.path(forResource: LayoutXML.Constants.ColorPlist, ofType: "plist") {
+                    if let path = Bundle.main.path(forResource: LayoutXML.Constants.colorPlist, ofType: "plist") {
                         if FileManager.default.fileExists(atPath: path) {
                             store.dictionary = {
                                 guard let dictionary: NSDictionary = NSDictionary(contentsOfFile: path) else {

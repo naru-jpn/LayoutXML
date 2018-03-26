@@ -16,11 +16,11 @@ public class AbsoluteLayout: UIView, LayoutXMLLayouter {
     override public func measureWidth() {
         
         // Gone
-        if self.visibility == .Gone {
-            self._size.width = LayoutXMLLength.Zero
+        if self.visibility == .gone {
+            self._size.width = LayoutXMLLength.zero
         }
         // Match Parent
-        else if self.sizeInfo.width == LayoutXMLLength.MatchParent {
+        else if self.sizeInfo.width == LayoutXMLLength.matchParent {
             
             if let superview: UIView = self.superview {
                 self._size.width = superview._size.width - (margin.left + margin.right) - (superview.padding.left + superview.padding.right)
@@ -33,13 +33,13 @@ public class AbsoluteLayout: UIView, LayoutXMLLayouter {
             }
         }
         // Wrap Content
-        else if self.sizeInfo.width == LayoutXMLLength.WrapContent {
+        else if self.sizeInfo.width == LayoutXMLLength.wrapContent {
             
             let matchParents: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
-                return subview.sizeInfo.width == LayoutXMLLength.MatchParent ? subview : nil
+                return subview.sizeInfo.width == LayoutXMLLength.matchParent ? subview : nil
             }
             let others: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
-                return subview.sizeInfo.width != LayoutXMLLength.MatchParent ? subview : nil
+                return subview.sizeInfo.width != LayoutXMLLength.matchParent ? subview : nil
             }
             
             for subview in others {
@@ -67,11 +67,11 @@ public class AbsoluteLayout: UIView, LayoutXMLLayouter {
     override public func measureHeight() {
         
         // gone
-        if visibility == .Gone {
-            _size.height = LayoutXMLLength.Zero
+        if visibility == .gone {
+            _size.height = LayoutXMLLength.zero
         }
         // match parent
-        else if sizeInfo.height == LayoutXMLLength.MatchParent {
+        else if sizeInfo.height == LayoutXMLLength.matchParent {
             
             if let superview: UIView = superview {
                 _size.height = superview._size.height - (margin.top + margin.bottom) - (superview.padding.top + superview.padding.bottom)
@@ -84,13 +84,13 @@ public class AbsoluteLayout: UIView, LayoutXMLLayouter {
             }
         }
         // wrap content
-        else if sizeInfo.height == LayoutXMLLength.WrapContent {
+        else if sizeInfo.height == LayoutXMLLength.wrapContent {
             
             let matchParents: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
-                return subview.sizeInfo.height == LayoutXMLLength.MatchParent ? subview : nil
+                return subview.sizeInfo.height == LayoutXMLLength.matchParent ? subview : nil
             }
             let others: [UIView] = self.subviews.flatMap { (subview: UIView) -> UIView? in
-                return subview.sizeInfo.height != LayoutXMLLength.MatchParent ? subview : nil
+                return subview.sizeInfo.height != LayoutXMLLength.matchParent ? subview : nil
             }
             
             for subview in others {
@@ -125,7 +125,7 @@ public class AbsoluteLayout: UIView, LayoutXMLLayouter {
     
     public func layout() {
         
-        if self.visibility == .Gone {
+        if self.visibility == .gone {
             return
         }
         
