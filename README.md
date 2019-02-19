@@ -1,6 +1,6 @@
 # LayoutXML
 
-Android styled XML template engine for iOS written in Swift. (Mainly for technical study.)
+Android styled XML template engine for iOS written in Swift.
 
 <kbd>
 <img src="https://user-images.githubusercontent.com/5572875/37922706-470cd148-3168-11e8-9a1a-861c8d61e6b3.png" width="250" />
